@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ade0049-90b8-4e95-8494-28b0dc06d13f" name="Changes" comment="" />
+    <list default="true" id="9ade0049-90b8-4e95-8494-28b0dc06d13f" name="Changes" comment="init">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PDRBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PDRBot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Question.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/PDRBot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PDRBot.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Question.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Question.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,7 +24,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/desktop-tutorial" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -48,7 +54,7 @@
     </configuration>
     <configuration name="PDRBot" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="PDRBot" />
-      <module name="PDRBot" />
+      <module name="PiDRBot" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -85,6 +91,14 @@
       <option name="presentableId" value="Default" />
       <updated>1648988623413</updated>
     </task>
+    <task id="LOCAL-00001" summary="init">
+      <created>1650558195317</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1650558195317</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -98,6 +112,10 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="init" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -108,8 +126,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/PDRBot.java</url>
-          <line>53</line>
-          <option name="timeStamp" value="30" />
+          <line>50</line>
+          <option name="timeStamp" value="33" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.ExceptionInInitializerError" package="java.lang" />
@@ -117,5 +135,10 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="org.telegram.telegrambots.meta.api.objects.Update" memberName="callbackQuery" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

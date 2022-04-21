@@ -25,8 +25,8 @@ public class Question {
         List<String> url = new ArrayList<>();
         url.add("https://images.app.goo.gl/mdSnsv5AuzhZQMt16");
         url.add("https://images.app.goo.gl/PyQ6vBb4i9CcD1yn9");
-        url.add("https://images.app.goo.gl/sqkz5CZmSz6tvLP7A");
-        url.add("https://images.app.goo.gl/sqkz5CZmSz6tvLP7A");
+        url.add("https://images.app.goo.gl/mdSnsv5AuzhZQMt16");
+        url.add("https://images.app.goo.gl/mdSnsv5AuzhZQMt16");
         url.add("https://images.app.goo.gl/X39QjnfqV9LJhhr96");
         url.add("https://images.app.goo.gl/wzkFajJirKJ7b8KCA");
         url.add("https://images.app.goo.gl/jaZDJbwDi1fGn3Ct9");
