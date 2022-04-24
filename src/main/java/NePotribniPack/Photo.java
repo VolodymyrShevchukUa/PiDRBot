@@ -10,7 +10,7 @@ import java.util.Collections;
 
 public class Photo {
 
-    public static SendPhoto PhotoRules(Update update,String chatId){
+    public static SendPhoto PhotoRules(String chatId){
 
 
         SendPhoto sendPhoto = new SendPhoto();

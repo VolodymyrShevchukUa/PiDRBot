@@ -1,3 +1,4 @@
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
@@ -6,14 +7,36 @@ import java.util.Collections;
 import java.util.List;
 
 public class keyBoardList {
+    // Ініціалізація посилань
+    public static final List<String> url = getUrl();
+    public static final List<InputFile> File = getFile();
+    public static final int COUNT_QUESTION = 10;
+    public static int index = 0;
+    // Ліст посилань
+    public static List<String> getUrl() {
 
-    static List<String> buttonsName = new ArrayList<>();
-    static {
-        setListValue(markupList());
-        setButtonName();
+        List<String> url = new ArrayList<>();
+        url.add("https://images.app.goo.gl/mdSnsv5AuzhZQMt16");
+        url.add("https://images.app.goo.gl/PyQ6vBb4i9CcD1yn9");
+        url.add("https://images.app.goo.gl/mdSnsv5AuzhZQMt16");
+        url.add("https://images.app.goo.gl/mdSnsv5AuzhZQMt16");
+        url.add("https://images.app.goo.gl/X39QjnfqV9LJhhr96");
+        url.add("https://images.app.goo.gl/wzkFajJirKJ7b8KCA");
+        url.add("https://images.app.goo.gl/jaZDJbwDi1fGn3Ct9");
+        url.add("https://images.app.goo.gl/XJfr1WnQMXqcRMn76");
+        url.add("https://images.app.goo.gl/xJJSmVBxYciojknR6");
+        url.add("https://images.app.goo.gl/xdeSFGMyufwgFQ9VA");
+        return url;
     }
 
-    static List<InlineKeyboardMarkup> klavka = markupList();
+    // Ліст де мутиться з посилань файл
+    public static List<InputFile> getFile() {
+        List<InputFile> kek = new ArrayList<>();
+        for (String u : url) {
+            kek.add(new InputFile(u));
+        }
+        return kek;
+    }
 
     public static InlineKeyboardMarkup keyBoardobj() {
         List<InlineKeyboardButton> anal = new ArrayList<>();
@@ -25,26 +48,18 @@ public class keyBoardList {
                     .build());
         }
         in.setKeyboard(Collections.singletonList(anal));
-
-
         return in;
     }
 
-    public static void main(String[] args) {
-        System.out.println(keyBoardobj().getKeyboard().get(0).size());
-    }
-
-    public static List<InlineKeyboardMarkup> markupList() {
+    public static List<InlineKeyboardMarkup> getMarkupListTemplate() {
         List<InlineKeyboardMarkup> in = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < COUNT_QUESTION; i++) {
             in.add(keyBoardobj());
         }
-
         return in;
     }
-    // True
-    static List<Integer> penis = getPenis();
-    static List<Integer> getPenis(){
+
+    static List<Integer> getPenis() {
         List<Integer> penis1 = new ArrayList<>();
         penis1.add(2);
         penis1.add(3);
@@ -59,21 +74,21 @@ public class keyBoardList {
         return penis1;
     }
 
-    public static void setListValue(List<InlineKeyboardMarkup> markupList) {
-        List<Integer> zalypa = getPenis();
-        for (int l = 0; l<10 ;l++) {
-            markupList.get(l).getKeyboard().get(0).get(zalypa.get(l)).setCallbackData("true");
+
+    // З цим лістом повний морок
+    private static void setListValue(List<InlineKeyboardMarkup> markupList, List<Integer> trueAnswer) {
+        int i = 0;
+        for(int answer : trueAnswer){
+
+            markupList.get(i++).getKeyboard().get(0).get(answer).setCallbackData("true");
+
         }
     }
-   public static void  setButtonName(){
-        buttonsName.add(0,"Варіант А");
-        buttonsName.add(1,"Варіант Б");
-        buttonsName.add(2,"Варіант В");
-        buttonsName.add(3,"Варіант Г");
-        for (InlineKeyboardMarkup i: markupList()) {
-            for (int r = 0 ; r < 4 ; r++)
-            i.getKeyboard().get(0).get(r).setText(buttonsName.get(r));
-        }
-    }
+
+    // не працює як має бути, але ми не здаємось
+
+
+
+
 
 }

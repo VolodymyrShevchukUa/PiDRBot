@@ -4,12 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ade0049-90b8-4e95-8494-28b0dc06d13f" name="Changes" comment="init">
+    <list default="true" id="9ade0049-90b8-4e95-8494-28b0dc06d13f" name="Changes" comment="I realized mega method , i get out from this shit dublication, and fixed PhotoMethod...">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Answer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Answer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/CommandBotEasy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/NePotribniPack/Photo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/NePotribniPack/Photo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/PDRBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PDRBot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Question.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Question.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/keyBoardList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/keyBoardList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/CommandBotEasy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/NePotribniPack/Photo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/NePotribniPack/Photo.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/PDRBot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PDRBot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Question.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Question.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Question.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/keyBoardList.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/keyBoardList.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +38,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="27Ht0tqyrndTURpZZEwjR5IKBKV" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -44,7 +53,12 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
-  <component name="RunManager" selected="Application.PDRBot">
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.keyBoardList">
     <configuration name="BotTTT" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="NePotribniPack.BotTTT" />
       <module name="PDRBot" />
@@ -68,15 +82,15 @@
     </configuration>
     <configuration name="keyBoardList" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="keyBoardList" />
-      <module name="PDRBot" />
+      <module name="PiDRBot" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.PDRBot" />
         <item itemvalue="Application.keyBoardList" />
+        <item itemvalue="Application.PDRBot" />
         <item itemvalue="Application.Question" />
         <item itemvalue="Application.BotTTT" />
       </list>
@@ -98,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1650558195317</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="I realized mega method , i get out from this shit dublication, and fixed PhotoMethod...">
+      <created>1650563381335</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1650563381335</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -114,7 +135,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="I realized mega method , i get out from this shit dublication, and fixed PhotoMethod..." />
+    <option name="LAST_COMMIT_MESSAGE" value="I realized mega method , i get out from this shit dublication, and fixed PhotoMethod..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -123,11 +145,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/NePotribniPack/BotTTT.java</url>
           <line>41</line>
           <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/PDRBot.java</url>
-          <line>50</line>
-          <option name="timeStamp" value="33" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.ExceptionInInitializerError" package="java.lang" />
