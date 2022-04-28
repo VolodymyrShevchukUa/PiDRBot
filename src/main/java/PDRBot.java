@@ -23,7 +23,10 @@ public class PDRBot extends TelegramLongPollingBot {
     private static final String TelegramBotToken = "5184808348:AAGqn7MBsuOsdTCGtnA1GrN6VwmavE0m8LY";
     private int countAnser;
     private int testcount = 0;
+    private int COUNT_QUESTION = 20;
     Set<Integer> messenger = new HashSet<>(); // Херня для перевірки на кількість натискань
+    private List<Question> questionsList = new JSONtry("src/main/resources/Questions.json").questions1;
+    private Ticket currentTicket;
 
     // вхід в програму
     public static void main(String[] args) {
@@ -65,7 +68,7 @@ public class PDRBot extends TelegramLongPollingBot {
         long chatID = callbackQuery.getMessage().getChatId();
 
 
-        if (testcount == keyBoardList.COUNT_QUESTION) {
+        if (currentTicket.isEnd()) {
             try {
                 execute(new SendMessage().builder().chatId(chatID + "").text(countAnser + "%").build());
             } catch (TelegramApiException e) {
@@ -76,7 +79,7 @@ public class PDRBot extends TelegramLongPollingBot {
         }
         if(!messenger.contains(messageId)){
             try {
-                execute(getPhoto(chatID).get(testcount));
+                execute(currentTicket.getNextSendPhoto(chatID));
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
@@ -92,16 +95,16 @@ public class PDRBot extends TelegramLongPollingBot {
 
     }
 
-    public static List<SendPhoto> getPhoto(Long chatID) {
+    public List<SendPhoto> getPhoto(Long chatID,List<Question> url) {
 
         List<SendPhoto> kek = new ArrayList<>();
-        for (InputFile i : keyBoardList.getFile()) {
-            kek.add(new SendPhoto().builder().photo(i)
+        for (Question i : url) {
+            kek.add(new SendPhoto().builder().photo(new InputFile(i.getUrl()))
                     .chatId(chatID + "")
-       //             .replyMarkup(keyBoardList.klavka.get(keyBoardList.index))
+                    .replyMarkup(keyBoardList.getMarkupListTemplate(20).get(testcount))
                     .build());
             // Воно не працює
-  //          Question.index++;
+            //          Question.index++;
         }
         return kek;
     }
@@ -117,21 +120,23 @@ public class PDRBot extends TelegramLongPollingBot {
             switch (message.getText()){
                 case "/test":
                     command.setText("Lets start");
+                    testcount = 0;
+                    currentTicket = new Ticket(questionsList,COUNT_QUESTION);
+                    try {
+                        execute(currentTicket.getNextSendPhoto(chatID));
+                    } catch (TelegramApiException e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 case "/rank":
                     command.setText(("Gomos"));
+                    break;
                 default:
                     command.setText("unknow command");
+                    break;
             }
             try {
                 execute(command);
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
-        }
-        if (message.getText().equals("/test")) {
-            testcount = 0;
-            try {
-                execute(Photo.PhotoRules(chatID + ""));
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
