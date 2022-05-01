@@ -10,6 +10,7 @@ import java.util.Set;
 public class Ticket {
 
     int currentQuestion = 0;
+    // чи можемо ми засунути questions в конструктор
     private final List<Question> questions;
 
     public Ticket(List<Question> allQuestionsList, int countOfQuestions) {

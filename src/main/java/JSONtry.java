@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-//SendPhoto - 1.File(image),KeyboardMarkup[InlineKeyboard(correct ansver)]
+
 // Добавити підпис до батонів
 public class JSONtry {
     List<Question> questions1 = new ArrayList<>();

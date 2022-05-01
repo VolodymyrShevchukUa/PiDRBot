@@ -95,20 +95,6 @@ public class PDRBot extends TelegramLongPollingBot {
 
     }
 
-    public List<SendPhoto> getPhoto(Long chatID,List<Question> url) {
-
-        List<SendPhoto> kek = new ArrayList<>();
-        for (Question i : url) {
-            kek.add(new SendPhoto().builder().photo(new InputFile(i.getUrl()))
-                    .chatId(chatID + "")
-                    .replyMarkup(keyBoardList.getMarkupListTemplate(20).get(testcount))
-                    .build());
-            // Воно не працює
-            //          Question.index++;
-        }
-        return kek;
-    }
-
 
 
     // для роботи з месягами
