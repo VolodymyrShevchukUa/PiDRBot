@@ -5,23 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ade0049-90b8-4e95-8494-28b0dc06d13f" name="Changes" comment="Спиздили питання з сайту vodiy.ua&#10;Cтворено автоматичний парсер, в разі зміни питань на офіційному сайті,&#10;Також в джейсоні вже є правильний!!! опис до питань та кількість кніпок, та правильна кнопка.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Pars.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/QuestionToJSON.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Questions2.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Answer.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/JSONtry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/JSONtry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/PDRBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PDRBot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Question.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pars.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pars.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/QuestionToJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/QuestionToJSON.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ticket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/keyBoardList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/keyBoardList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Questions.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Questions.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Answer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/JSONtry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/JSONtry.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/PDRBot.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PDRBot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Question.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Question.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Ticket.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Ticket.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/keyBoardList.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/keyBoardList.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +59,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.QuestionToJSON">
+  <component name="RunManager" selected="Application.PDRBot">
     <configuration name="PDRBot" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="PDRBot" />
       <module name="PiDRBot" />
@@ -105,9 +97,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.QuestionToJSON" />
         <item itemvalue="Application.Pars" />
         <item itemvalue="Application.PDRBot" />
+        <item itemvalue="Application.QuestionToJSON" />
         <item itemvalue="Application.Ticket" />
         <item itemvalue="Application.keyBoardList" />
       </list>
@@ -150,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651175210250</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Спиздили питання з сайту vodiy.ua&#10;Cтворено автоматичний парсер, в разі зміни питань на офіційному сайті,&#10;Також в джейсоні вже є правильний!!! опис до питань та кількість кніпок, та правильна кнопка.">
+      <created>1651420457297</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1651420457297</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -186,11 +185,6 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
-    <pin-to-top-manager>
-      <pinned-members>
-        <PinnedItemInfo parentTag="org.telegram.telegrambots.meta.api.objects.Update" memberName="callbackQuery" />
-      </pinned-members>
-    </pin-to-top-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="ticketIndicator" language="JAVA" />

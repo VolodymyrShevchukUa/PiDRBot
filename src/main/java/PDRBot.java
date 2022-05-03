@@ -25,7 +25,7 @@ public class PDRBot extends TelegramLongPollingBot {
     private int testcount = 0;
     private int COUNT_QUESTION = 20;
     Set<Integer> messenger = new HashSet<>(); // Херня для перевірки на кількість натискань
-    private List<Question> questionsList = new JSONtry("src/main/resources/Questions.json").questions1;
+    private List<Question> questionsList = new JSONtry(QuestionToJSON.PATH).questions1;
     private Ticket currentTicket;
 
     // вхід в програму
@@ -132,8 +132,8 @@ public class PDRBot extends TelegramLongPollingBot {
 
 
     // поки що не працює, треба нормально це все зробити
-    private String getCurrencyButton(Update update) {
-        return update.getCallbackQuery().getData().equals("true") ? "✅" : "X";
+    public static String getCurrencyButton(Update update,Integer in) {
+        return update.getCallbackQuery().getData().equals("true") ?in + "✅" : in+ "X";
     }
 
     @Override

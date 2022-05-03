@@ -1,14 +1,12 @@
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Ticket {
-
+    Integer captionText = 1;
     int currentQuestion = 0;
     // чи можемо ми засунути questions в конструктор
     private final List<Question> questions;
@@ -28,8 +26,8 @@ public class Ticket {
 
     public SendPhoto getNextSendPhoto(long chatId) {
         Question current = getNextQuestion();
-        InlineKeyboardMarkup inlineKeyboardMarkup = keyBoardList.keyBoardobj();
-        inlineKeyboardMarkup.getKeyboard().get(0).get(current.getCorrectButon());
+        InlineKeyboardMarkup inlineKeyboardMarkup = createInlineKeyboardButtonList(current.getCountOfButton());
+        inlineKeyboardMarkup.getKeyboard().get(0).get(current.getCorrectButon()).setCallbackData("true");
         return (new SendPhoto().builder()
                 .replyMarkup(inlineKeyboardMarkup)
                 .photo(new InputFile(current.getUrl()))
@@ -37,7 +35,19 @@ public class Ticket {
                 .chatId(chatId + "")
                 .build());
     }
-
+    private InlineKeyboardMarkup createInlineKeyboardButtonList(int countOfButton) {
+        List<InlineKeyboardButton> buttons = new ArrayList<>();
+        InlineKeyboardMarkup in = new InlineKeyboardMarkup();
+        for (Integer i = 1; i < countOfButton; i++) {
+            captionText++;
+            buttons.add(new InlineKeyboardButton().builder()
+                    .callbackData("false")
+                    .text(i.toString()+"✅")
+                    .build());
+        }
+        in.setKeyboard(Collections.singletonList((buttons)));
+        return in;
+    }
 
     public boolean isEnd() {
 

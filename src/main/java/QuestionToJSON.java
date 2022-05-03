@@ -7,6 +7,14 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class QuestionToJSON {
+
+    public static final String CAPTION = "Caption";
+    public static final String CORRECT_BUTTON = "CorrectButton";
+    public static final String URL = "Url";
+    public static final String COUNT_OF_BUTTON = "CountOfButton";
+    public static final String QUESTIONS = "Questions";
+    public static final String PATH = "src/main/resources/Questions2.json";
+
     public static void main(String[] args) {
 
 
@@ -15,22 +23,20 @@ public class QuestionToJSON {
        JSONArray array = new JSONArray();
        for(Question q: questions){
            JSONObject jsonObject = new JSONObject();
-           jsonObject.put("Caption",q.getCaption());
-           jsonObject.put("CorrectButton",q.getCorrectButon());
-           jsonObject.put("Url",q.getUrl());
-           jsonObject.put("CountOfButton",q.getCountOfButton());
+           jsonObject.put(CAPTION,q.getCaption());
+           jsonObject.put(CORRECT_BUTTON,q.getCorrectButon());
+           jsonObject.put(URL,q.getUrl());
+           jsonObject.put(COUNT_OF_BUTTON,q.getCountOfButton());
            array.put(jsonObject);
        }
        JSONObject result = new JSONObject();
-       result.put("Questions",array);
+       result.put(QUESTIONS,array);
        System.out.println(result.toString());
 
         String content = result.toString();
-        String path = "src/main/resources/Questions2.json";
 
         try {
-
-            Files.writeString(Paths.get(path), content);
+            Files.writeString(Paths.get(PATH), content);
 
         } catch (IOException e) {
             e.printStackTrace();

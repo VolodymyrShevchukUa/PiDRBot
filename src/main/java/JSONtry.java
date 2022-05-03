@@ -20,13 +20,15 @@ public class JSONtry {
             e.printStackTrace();
         }
         JSONObject jsonObject = new JSONObject(stringJSON);
-        JSONArray questions = jsonObject.getJSONArray("Questions");
+        JSONArray questions = jsonObject.getJSONArray(QuestionToJSON.QUESTIONS);
         for (int i = 0; i < questions.length(); i++)
         {
-            String image = questions.getJSONObject(i).getString("image");
-            int correctAnswer = questions.getJSONObject(i).getInt("correct ansver");
-            String caption = questions.getJSONObject(i).getString("caption");
-            questions1.add(new Question(image,correctAnswer,caption));
+            String image = questions.getJSONObject(i).getString(QuestionToJSON.URL);
+            int correctAnswer = questions.getJSONObject(i).getInt(QuestionToJSON.CORRECT_BUTTON);
+            int countOfButtons = questions.getJSONObject(i).getInt(QuestionToJSON.COUNT_OF_BUTTON);
+            String caption = questions.getJSONObject(i).getString(QuestionToJSON.CAPTION);
+            questions1.add(new Question(image,correctAnswer,caption,countOfButtons));
+
         }
     }
     // ??????

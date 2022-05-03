@@ -6,7 +6,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+// робив не я
 public class Pars {
     private final String url;
     private final int pages;
@@ -42,6 +42,8 @@ public class Pars {
         }
         return result;
     }
+
+
 
     private Question createQuestion(Element current) {
         String caption = current.selectFirst("p").text();
