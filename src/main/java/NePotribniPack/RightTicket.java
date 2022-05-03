@@ -9,7 +9,7 @@
 //import java.util.Set;
 //
 //public class RightTicket {
-// private List<Question> allQuestionsList = new JSONtry("src/main/resources/Questions.json").questions1;
+// private List<json.Question> allQuestionsList = new JSONtry("src/main/resources/Questions.json").questions1;
 //    // Тут з чат айді я щось нашаманив пізда
 //    private List<SendPhoto> allPhotoList = getPhotoList(allQuestionsList,1231);
 //    int rand = (int) (Math.random() * allQuestionsList.size());
@@ -17,10 +17,10 @@
 //
 //
 //
-//    private List<SendPhoto> getPhotoList(List<Question> questions, long chatId){
+//    private List<SendPhoto> getPhotoList(List<json.Question> questions, long chatId){
 //        int i = 0;
 //        List<SendPhoto> photoList = new ArrayList<>();
-//        for (Question que:questions){
+//        for (json.Question que:questions){
 //            photoList.add(new SendPhoto().builder()
 //                    .replyMarkup(keyBoardList.getMarkupListTemplate(allQuestionsList.size()).get(i))
 //                    .photo(new InputFile(que.getUrl()))

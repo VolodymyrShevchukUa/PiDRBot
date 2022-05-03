@@ -1,3 +1,5 @@
+package NePotribniPack;
+
 import java.util.Objects;
 
 public class Incapsulation {

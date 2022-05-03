@@ -1,34 +1,31 @@
-import NePotribniPack.Photo;
+import entity.Ticket;
+import utils.JSONToQuestion;
+import entity.Question;
+import utils.QuestionToJSON;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
-import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
-import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 
 public class PDRBot extends TelegramLongPollingBot {
-    // Поля класу
     private static final String TelegramBotName = "PDRbot";
     private static final String TelegramBotToken = "5184808348:AAGqn7MBsuOsdTCGtnA1GrN6VwmavE0m8LY";
     private int countAnser;
-    private int testcount = 0;
     private int COUNT_QUESTION = 20;
     Set<Integer> messenger = new HashSet<>(); // Херня для перевірки на кількість натискань
-    private List<Question> questionsList = new JSONtry(QuestionToJSON.PATH).questions1;
+    private List<Question> questionsList = new JSONToQuestion(QuestionToJSON.PATH).getQuestions();
     private Ticket currentTicket;
 
-    // вхід в програму
     public static void main(String[] args) {
 
         try {
@@ -47,22 +44,15 @@ public class PDRBot extends TelegramLongPollingBot {
         }
 
     }
-    // не статичні методи, які при цьому всьому в мейні проініціалізуються, треба буде запитатись як? оскільки через об'єкти не викликались, можливо метод регистер бот
     @Override
     public void onUpdateReceived(Update update) {
         try {
             onUpdateReceived2(update);
-            // вивід ексепшину
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
-
-    // ініціалізація????? колекції
-
-    // для роботи з коллбеками
     private void callBack(CallbackQuery callbackQuery) {
         Integer messageId = callbackQuery.getMessage().getMessageId();
         long chatID = callbackQuery.getMessage().getChatId();
@@ -83,7 +73,6 @@ public class PDRBot extends TelegramLongPollingBot {
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
-            testcount++;
             validateAnswer(callbackQuery);
             messenger.add(messageId);
         }
@@ -95,8 +84,6 @@ public class PDRBot extends TelegramLongPollingBot {
 
     }
 
-
-
     // для роботи з месягами
     private void message(Message message) {
         SendMessage command = new SendMessage();
@@ -106,7 +93,6 @@ public class PDRBot extends TelegramLongPollingBot {
             switch (message.getText()){
                 case "/test":
                     command.setText("Lets start");
-                    testcount = 0;
                     currentTicket = new Ticket(questionsList,COUNT_QUESTION);
                     try {
                         execute(currentTicket.getNextSendPhoto(chatID));
