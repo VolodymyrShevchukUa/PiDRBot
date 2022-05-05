@@ -1,14 +1,15 @@
 package handlers;
 
 import entity.Question;
+import entity.QuestionSender;
 import entity.Ticket;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import utils.JSONToQuestion;
-import utils.QuestionToJSON;
+import utils.json.JSONToQuestion;
+import utils.json.QuestionToJSON;
 
 import java.util.List;
 
@@ -45,8 +46,9 @@ public class MainMenuStrategy implements Strategy {
                 case "/test":
                     sender.execute(createTextMessage(update,"Lets start"));
                     Ticket currentTicket = new Ticket(questionsList, COUNT_QUESTION);
-                        sender.execute(currentTicket.getNextSendPhoto(chatID));
-                    nextStrategy = new TestStrategy(currentTicket, sender);
+                    QuestionSender questionSender = new QuestionSender(sender,chatID,currentTicket);
+                    questionSender.sendNextQuestion();
+                    nextStrategy = new TestStrategy( sender, questionSender);
                     break;
                 case "/rank":
                     sender.execute(createTextMessage(update,"Gomos"));

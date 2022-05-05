@@ -7,5 +7,4 @@ public interface Strategy {
     Strategy getStrategy();
     void onUpdateReceived(Update update) throws TelegramApiException;
 
-
 }

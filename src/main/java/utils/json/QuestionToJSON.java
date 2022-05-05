@@ -1,4 +1,4 @@
-package utils;
+package utils.json;
 
 import entity.Question;
 import org.json.JSONArray;
@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class QuestionToJSON {
-
+    public static final String NULL_IMAGE = "null image";
     public static final String CAPTION = "Caption";
     public static final String CORRECT_BUTTON = "CorrectButton";
     public static final String URL = "Url";
@@ -20,9 +20,7 @@ public class QuestionToJSON {
 
     public static void main(String[] args) {
 
-
        List<Question> questions = new Pars("https://vodiy.ua/pdr/test/?complect=6&bilet=",100).pars();
-       System.out.println();
        JSONArray array = new JSONArray();
        for(Question q: questions){
            JSONObject jsonObject = new JSONObject();

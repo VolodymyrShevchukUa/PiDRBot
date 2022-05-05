@@ -1,6 +1,6 @@
 package handlers;
 
-import entity.Ticket;
+import entity.QuestionSender;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -14,11 +14,11 @@ public class TestStrategy implements Strategy {
     private int countAnser;
     private final Set<Integer> messenger = new HashSet<>(); // Херня для перевірки на кількість натискань
     private final AbsSender sender;
-    private final Ticket currentTicket;
+    private final QuestionSender questionSender;
 
-    public TestStrategy(Ticket currentTicket, AbsSender sender) {
+    public TestStrategy(AbsSender sender, QuestionSender questionSender) {
         this.sender = sender;
-        this.currentTicket = currentTicket;
+        this.questionSender = questionSender;
     }
 
     private void validateAnswer(CallbackQuery callbackQuery) {
@@ -29,22 +29,34 @@ public class TestStrategy implements Strategy {
 
     @Override
     public Strategy getStrategy() {
-        return currentTicket.isEnd() ? new MainMenuStrategy(sender) : this;
+        return questionSender.isEnd() ? new MainMenuStrategy(sender) : this;
+    }
+
+    private void processMessage() {
+
     }
 
     @Override
     public void onUpdateReceived(Update update) throws TelegramApiException {
-        CallbackQuery callbackQuery = update.getCallbackQuery();
+        if (update.hasCallbackQuery()) {
+            processCallbackQuery(update.getCallbackQuery());
+        } else {
+            processMessage();
+        }
+    }
+
+    private void processCallbackQuery(CallbackQuery callbackQuery) throws TelegramApiException {
         long chatID = callbackQuery.getMessage().getChatId();
         Integer messageId = callbackQuery.getMessage().getMessageId();
         if (!messenger.contains(messageId)) {
             validateAnswer(callbackQuery);
             messenger.add(messageId);
-            if (currentTicket.isEnd()) {
+            if (questionSender.isEnd()) {
                 sender.execute(new SendMessage().builder().chatId(chatID + "").text(countAnser + "%").build());
             } else {
-                sender.execute(currentTicket.getNextSendPhoto(chatID));
+                questionSender.sendNextQuestion();
             }
         }
     }
 }
+

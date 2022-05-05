@@ -1,7 +1,7 @@
 package entity;
 
 import org.json.JSONObject;
-import utils.QuestionToJSON;
+import utils.json.QuestionToJSON;
 
 // Екземпляр класу questions матиме два параметри,
 // Їх ми пробуєм записати в масив [] об'єктів questions {} в JSON
@@ -40,4 +40,10 @@ public class Question {
     public int getCountOfButton() {
         return countOfButton;
     }
+
+    public boolean hasPhoto(){
+        return !url.equals(QuestionToJSON.NULL_IMAGE);
+    }
+
+
 }
