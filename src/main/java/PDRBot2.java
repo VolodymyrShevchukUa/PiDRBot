@@ -1,3 +1,4 @@
+import adapter.sender.SenderTelegrambots;
 import handlers.MainMenuStrategy;
 import handlers.Strategy;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -7,7 +8,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 
-public class PDRBot2 extends TelegramLongPollingBot {
+public class PDRBot2 extends SenderTelegrambots {
     private static final String TelegramBotName = "PDRbot";
     private static final String TelegramBotToken = "5184808348:AAGqn7MBsuOsdTCGtnA1GrN6VwmavE0m8LY";
     private Strategy currentStrategy = new MainMenuStrategy(this);
