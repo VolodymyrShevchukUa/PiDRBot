@@ -22,7 +22,7 @@ public class PDRBot2 extends SenderTelegrambots {
 
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-            telegramBotsApi.registerBot(new PDRBot3());
+            telegramBotsApi.registerBot(new PDRBot2());
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
