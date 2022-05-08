@@ -1,7 +1,17 @@
 package entity;
 
+import adapter.message.PhotoMessage;
+import adapter.message.MessageI;
+import adapter.message.TextMessage;
 import org.json.JSONObject;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import utils.json.QuestionToJSON;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 // Екземпляр класу questions матиме два параметри,
 // Їх ми пробуєм записати в масив [] об'єктів questions {} в JSON
@@ -43,6 +53,30 @@ public class Question {
 
     public boolean hasPhoto(){
         return !url.equals(QuestionToJSON.NULL_IMAGE);
+    }
+
+    public MessageI createMessage(long chatId) {
+        InlineKeyboardMarkup inlineKeyboardMarkup = createInlineKeyboardButtonList(getCountOfButton(), getCorrectButon());
+        MessageI messageI;
+        if (hasPhoto()) {
+            messageI = new PhotoMessage(chatId, getCaption(), new InputFile(getUrl()), inlineKeyboardMarkup);
+        } else {
+            messageI = new TextMessage(chatId, getCaption(), inlineKeyboardMarkup);
+        }
+        return messageI;
+    }
+
+    private InlineKeyboardMarkup createInlineKeyboardButtonList(int countOfButton, int trueButton) {
+        List<InlineKeyboardButton> buttons = new ArrayList<>();
+        InlineKeyboardMarkup in = new InlineKeyboardMarkup();
+        for (int i = 1; i < countOfButton; i++) {
+            buttons.add(InlineKeyboardButton.builder()
+                    .callbackData(i == trueButton ? "true" : "false")
+                    .text(i + "✅")
+                    .build());
+        }
+        in.setKeyboard(Collections.singletonList((buttons)));
+        return in;
     }
 
 

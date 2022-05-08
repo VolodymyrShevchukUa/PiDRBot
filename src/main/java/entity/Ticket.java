@@ -1,16 +1,10 @@
 package entity;
 
-import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
-import org.telegram.telegrambots.meta.api.objects.InputFile;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import adapter.message.MessageI;
 
 import java.util.*;
 
 public class Ticket {
-
-    int currentQuestion = 0;
-    // чи можемо ми засунути questions в конструктор
     private final List<Question> questions;
 
     public Ticket(List<Question> allQuestionsList, int countOfQuestions) {
@@ -26,16 +20,12 @@ public class Ticket {
         }
     }
 
-
-
-    public boolean isEnd() {
-
-        return questions.size() == currentQuestion;
-    }
-
-    public Question getNextQuestion() {
-        return questions.get(currentQuestion++);
-
+    public Queue<MessageI> getQueueOfTicketMessages(long chatID) {
+        Queue<MessageI> queueOfTicketMessages = new LinkedList<>();
+        for (Question q : questions) {
+            queueOfTicketMessages.add(q.createMessage(chatID));
+        }
+        return queueOfTicketMessages;
     }
 }
 
