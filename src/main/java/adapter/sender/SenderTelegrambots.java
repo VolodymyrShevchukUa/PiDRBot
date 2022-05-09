@@ -1,30 +1,38 @@
 package adapter.sender;
 
 
-import adapter.message.Message;
-import adapter.message.PhotoMessage;
+import adapter.message.MessageI;
+import adapter.message.TextMessage;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public abstract class SenderTelegrambots extends TelegramLongPollingBot implements Sender {
     // TODO:Add a logger
     @Override
-    public void send(Message message) {
+    public Message execute(MessageI message) {
         try {
-            tryToSend(message);
+            return tryToSend(message);
         } catch (TelegramApiException e) {
             e.printStackTrace();
+            return new Message();
         }
     }
 
-    private void tryToSend(Message message) throws TelegramApiException {
-        if (message instanceof SendMessage) {
-            execute((SendMessage) message);
-        } else if (message instanceof PhotoMessage) {
-            execute((PhotoMessage) message);
+    private Message tryToSend(MessageI message) throws TelegramApiException {
+        if (message instanceof SendMessage sendMessage) {
+             return execute(sendMessage);
+        } else if (message instanceof SendPhoto photoMessage) {
+            return execute(photoMessage);
         } else {
             throw new UnsupportedOperationException("not implemented yet");
         }
+    }
+
+    @Override
+    public Message sendText(long chatID, String text) {
+        return execute((MessageI) new TextMessage(chatID,text));
     }
 }

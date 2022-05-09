@@ -1,6 +1,6 @@
+import adapter.sender.SenderTelegrambots;
 import handlers.MainMenuStrategy;
 import handlers.Strategy;
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -47,11 +47,8 @@ public class PDRBot extends SenderTelegrambots {
     }
 
     private static Properties getProperty() {
-
-        FileInputStream fis;
         Properties properties = new Properties();
-        try {
-            fis = new FileInputStream(PATH);
+        try (FileInputStream fis = new FileInputStream(PATH)) {
             properties.load(fis);
         } catch (Exception e) {
             System.out.println("File not found");
