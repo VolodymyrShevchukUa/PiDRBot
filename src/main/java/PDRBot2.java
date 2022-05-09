@@ -12,9 +12,9 @@ import java.util.Properties;
 
 public class PDRBot2 extends SenderTelegrambots {
     private static final String PATH = "src/main/resources/bot.properties";
-    private final Properties propertie = getProperty();
-    private final String TelegramBotName = propertie.getProperty("bot.name");
-    private final String TelegramBotToken = propertie.getProperty("bot.token");
+    private final static Properties PROPERTIES = getProperty();
+    private final static String TELEGRAM_BOT_NAME = PROPERTIES.getProperty("bot.name");
+    private final static String TELEGRAM_BOT_TOKEN = PROPERTIES.getProperty("bot.token");
     private Strategy currentStrategy = new MainMenuStrategy(this);
 
     // Також можна замутити це гавно через конструктор
@@ -40,15 +40,15 @@ public class PDRBot2 extends SenderTelegrambots {
 
     @Override
     public String getBotUsername() {
-        return TelegramBotName;
+        return TELEGRAM_BOT_NAME;
     }
 
     @Override
     public String getBotToken() {
-        return TelegramBotToken;
+        return TELEGRAM_BOT_TOKEN;
     }
 
-    private Properties getProperty() {
+    private static Properties getProperty() {
 
         FileInputStream fis;
         Properties properties = new Properties();
