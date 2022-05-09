@@ -55,5 +55,5 @@ release.properties
 pom.xml.releaseBackup
 pom.xml.tag
 
-.properties
-src/main/java/NePotribniPack
+*.properties
+src/main/java/NePotribniPack/
