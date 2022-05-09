@@ -1,6 +1,6 @@
-import adapter.sender.SenderTelegrambots;
 import handlers.MainMenuStrategy;
 import handlers.Strategy;
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -9,7 +9,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import java.io.FileInputStream;
 import java.util.Properties;
 
-public class PDRBot2 extends SenderTelegrambots {
+public class PDRBot extends SenderTelegrambots {
     private static final String PATH = "src/main/resources/bot.properties";
     private final static Properties PROPERTIES = getProperty();
     private final static String TELEGRAM_BOT_NAME = PROPERTIES.getProperty("bot.name");
@@ -20,7 +20,7 @@ public class PDRBot2 extends SenderTelegrambots {
     public static void main(String[] args) {
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-            telegramBotsApi.registerBot(new PDRBot2());
+            telegramBotsApi.registerBot(new PDRBot());
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
