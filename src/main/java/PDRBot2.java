@@ -9,7 +9,6 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import java.io.FileInputStream;
 import java.util.Properties;
 
-
 public class PDRBot2 extends SenderTelegrambots {
     private static final String PATH = "src/main/resources/bot.properties";
     private final static Properties PROPERTIES = getProperty();
@@ -19,7 +18,6 @@ public class PDRBot2 extends SenderTelegrambots {
 
     // Також можна замутити це гавно через конструктор
     public static void main(String[] args) {
-
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
             telegramBotsApi.registerBot(new PDRBot2());

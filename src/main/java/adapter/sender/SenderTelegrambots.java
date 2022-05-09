@@ -1,5 +1,6 @@
 package adapter.sender;
 
+
 import adapter.message.Message;
 import adapter.message.PhotoMessage;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;

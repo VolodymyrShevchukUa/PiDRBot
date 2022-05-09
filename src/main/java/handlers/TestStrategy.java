@@ -1,35 +1,36 @@
 package handlers;
 
-import entity.QuestionSender;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import adapter.message.MessageI;
+import adapter.message.TextMessage;
+import adapter.sender.Sender;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class TestStrategy implements Strategy {
-    private int countAnser;
-    private final Set<Integer> messenger = new HashSet<>(); // Херня для перевірки на кількість натискань
-    private final AbsSender sender;
-    private final QuestionSender questionSender;
+    private int rightAnswer;
+    private final MessageIdCheck checker = new MessageIdCheck();
+    private final Queue<MessageI> queueOfTicketMessages;
+    private final Sender sender;
+    private Strategy strategy = this;
 
-    public TestStrategy(AbsSender sender, QuestionSender questionSender) {
+    public TestStrategy(Queue<MessageI> queueOfTicketMessages, Sender sender) {
+        this.queueOfTicketMessages = queueOfTicketMessages;
         this.sender = sender;
-        this.questionSender = questionSender;
     }
 
     private void validateAnswer(CallbackQuery callbackQuery) {
         if (callbackQuery.getData().equals("true")) {
-            countAnser += 5;
+            rightAnswer += 5;
         }
     }
 
     @Override
     public Strategy getStrategy() {
-        return questionSender.isEnd() ? new MainMenuStrategy(sender) : this;
+        return strategy;
     }
 
     private void processMessage() {
@@ -45,17 +46,42 @@ public class TestStrategy implements Strategy {
         }
     }
 
-    private void processCallbackQuery(CallbackQuery callbackQuery) throws TelegramApiException {
-        long chatID = callbackQuery.getMessage().getChatId();
-        Integer messageId = callbackQuery.getMessage().getMessageId();
-        if (!messenger.contains(messageId)) {
+    private void processCallbackQuery(CallbackQuery callbackQuery) {
+        int messageId = callbackQuery.getMessage().getMessageId();
+        if (checker.isUnic(messageId)) {
             validateAnswer(callbackQuery);
-            messenger.add(messageId);
-            if (questionSender.isEnd()) {
-                sender.execute(new SendMessage().builder().chatId(chatID + "").text(countAnser + "%").build());
-            } else {
-                questionSender.sendNextQuestion();
+            MessageI messageI = queueOfTicketMessages.poll();
+            if (messageI == null) {
+                goToMainMenu();
+                messageI = new TextMessage(callbackQuery.getMessage().getChatId(), rightAnswer + "%");
             }
+            Message execute = sender.execute(messageI);
+            checker.registrateMessageId(execute.getMessageId());
+        }
+    }
+
+    public void sendFirstQuestion() {
+        checker.registrateMessageId(sender.execute(queueOfTicketMessages.poll()).getMessageId());
+    }
+
+    private void goToMainMenu() {
+        strategy = new MainMenuStrategy(sender);
+    }
+
+    private static class MessageIdCheck {
+        private final Map<Integer, Boolean> map = new HashMap<>();
+
+        private void registrateMessageId(int id) {
+            map.put(id, false);
+        }
+
+        private boolean isUnic(int id) {
+            Boolean key = map.get(id);
+            if (key != null && !key) {
+                map.put(id, true);
+                return true;
+            }
+            return false;
         }
     }
 }
