@@ -33,6 +33,7 @@ public abstract class SenderTelegrambots extends TelegramLongPollingBot implemen
 
     @Override
     public Message sendText(long chatID, String text) {
+// Каст?
         return execute((MessageI) new TextMessage(chatID,text));
     }
 }

@@ -11,13 +11,16 @@ import java.util.Map;
 import java.util.Queue;
 
 public class Quiz {
-    private int rightAnswer = 0;
+    private float rightAnswer = 0;
     private final MessageIdCheck checker = new MessageIdCheck();
     private final Queue<MessageI> queueOfTicketMessages;
     private final Sender sender;
     private boolean isEnd = false;
+    private final int countOfQuestion ;
+
 
     public Quiz(Queue<MessageI> queueOfTicketMessages, Sender sender) {
+        countOfQuestion = queueOfTicketMessages.size();
         this.queueOfTicketMessages = queueOfTicketMessages;
         this.sender = sender;
     }
@@ -34,7 +37,8 @@ public class Quiz {
             MessageI messageI = queueOfTicketMessages.poll();
             if (messageI == null) {
                 isEnd = true;
-                messageI = new TextMessage(callbackQuery.getMessage().getChatId(), rightAnswer + "%");
+                sendResult(callbackQuery.getMessage().getChatId());
+                return;
             }
             Message execute = sender.execute(messageI);
             checker.registrateNewMessageId(execute.getMessageId());
@@ -43,12 +47,16 @@ public class Quiz {
 
     private void validateAnswer(CallbackQuery callbackQuery) {
         if (callbackQuery.getData().equals("true")) {
-            rightAnswer += 5;
+            float ra = 100f/countOfQuestion;
+            rightAnswer += ra;
         }
     }
 
     public void sendFirstQuestion() {
         checker.registrateNewMessageId(sender.execute(queueOfTicketMessages.poll()).getMessageId());
+    }
+    public void sendResult(long chatID){
+        sender.execute(new TextMessage(chatID, String.format("%.2f",rightAnswer)+"%"));
     }
 
     private static class MessageIdCheck {
