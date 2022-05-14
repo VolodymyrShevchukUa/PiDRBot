@@ -22,10 +22,10 @@ public abstract class SenderTelegrambots extends TelegramLongPollingBot implemen
     }
 
     private Message tryToSend(MessageI message) throws TelegramApiException {
-        if (message instanceof SendMessage sendMessage) {
-             return execute(sendMessage);
-        } else if (message instanceof SendPhoto photoMessage) {
-            return execute(photoMessage);
+        if (message instanceof SendMessage) {
+             return execute((SendMessage)message);
+        } else if (message instanceof SendPhoto) {
+            return execute((SendPhoto)message);
         } else {
             throw new UnsupportedOperationException("not implemented yet");
         }
@@ -33,7 +33,6 @@ public abstract class SenderTelegrambots extends TelegramLongPollingBot implemen
 
     @Override
     public Message sendText(long chatID, String text) {
-// Каст?
         return execute((MessageI) new TextMessage(chatID,text));
     }
 }

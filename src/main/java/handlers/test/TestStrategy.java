@@ -80,7 +80,7 @@ public class TestStrategy implements Strategy {
             return;
         }
         if (countOfQuestion == 10 || countOfQuestion == 20 || countOfQuestion == 30 || countOfQuestion == 40) {
-            quiz = new Quiz(new Ticket(questionsList, countOfQuestion).getQueueOfTicketMessages(chatID), sender);
+            quiz = new QuizWithMarks(new Ticket(questionsList, countOfQuestion).getQueueOfTicketMessages(chatID), sender);
             quiz.sendFirstQuestion();
         } else {
             sender.execute(new TextMessage(chatID, "Ви ввели не вірне число"));

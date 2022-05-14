@@ -10,53 +10,44 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
-public class Quiz {
-    private float rightAnswer = 0;
+public abstract class Quiz {
     private final MessageIdCheck checker = new MessageIdCheck();
     private final Queue<MessageI> queueOfTicketMessages;
     private final Sender sender;
-    private boolean isEnd = false;
-    private final int countOfQuestion ;
 
-
-    public Quiz(Queue<MessageI> queueOfTicketMessages, Sender sender) {
-        countOfQuestion = queueOfTicketMessages.size();
+    Quiz(Queue<MessageI> queueOfTicketMessages, Sender sender) {
         this.queueOfTicketMessages = queueOfTicketMessages;
         this.sender = sender;
     }
 
+    abstract void processAnswer(CallbackQuery callbackQuery);
+    abstract String getResult();
+
     public boolean isEnd() {
-        return isEnd;
+        return queueOfTicketMessages.isEmpty();
     }
 
     public void processCallbackQuery(CallbackQuery callbackQuery) {
-        int messageId = callbackQuery.getMessage().getMessageId();
+        Message message = callbackQuery.getMessage();
+        int messageId = message.getMessageId();
         if (checker.isUnic(messageId)) {
             checker.registrateProcessedMessageId(messageId);
-            validateAnswer(callbackQuery);
-            MessageI messageI = queueOfTicketMessages.poll();
-            if (messageI == null) {
-                isEnd = true;
-                sendResult(callbackQuery.getMessage().getChatId());
-                return;
+            processAnswer(callbackQuery);
+            if (isEnd()) {
+                sendResult(message.getChatId());
+            } else {
+                Message execute = sender.execute(queueOfTicketMessages.poll());
+                checker.registrateNewMessageId(execute.getMessageId());
             }
-            Message execute = sender.execute(messageI);
-            checker.registrateNewMessageId(execute.getMessageId());
-        }
-    }
-
-    private void validateAnswer(CallbackQuery callbackQuery) {
-        if (callbackQuery.getData().equals("true")) {
-            float ra = 100f/countOfQuestion;
-            rightAnswer += ra;
         }
     }
 
     public void sendFirstQuestion() {
         checker.registrateNewMessageId(sender.execute(queueOfTicketMessages.poll()).getMessageId());
     }
-    public void sendResult(long chatID){
-        sender.execute(new TextMessage(chatID, String.format("%.2f",rightAnswer)+"%"));
+
+    public void sendResult(long chatID) {
+        sender.execute(new TextMessage(chatID, getResult()));
     }
 
     private static class MessageIdCheck {

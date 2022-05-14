@@ -2,17 +2,11 @@ import adapter.sender.SenderTelegrambots;
 import handlers.MainMenuStrategy;
 import handlers.Strategy;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 public class PDRBot extends SenderTelegrambots {
@@ -62,43 +56,6 @@ public class PDRBot extends SenderTelegrambots {
         return properties;
     }
 }
-
-
-//    public void onUpdateReceived(Update update) {
-//        Message message = update.getMessage();
-//        sendHideKeyboard(message.getChatId(), message.getMessageId());
-//    }
-//
-//    private void sendHideKeyboard(Long chatId, Integer messageId) {
-//        SendMessage sendMessageRequest = new SendMessage();
-//        sendMessageRequest.setChatId(chatId + "");
-//        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-//
-//        List<KeyboardRow> commands = new ArrayList<>();
-//        KeyboardRow commandRow = new KeyboardRow();
-//        commandRow.add(" --> ");
-//        commandRow.add("Zalupka");
-//        commandRow.add("Milupka");
-//        commandRow.add("Zalupka");
-//        commandRow.add("Milupka");
-//        commandRow.add("Zalupka");
-//        commandRow.add("Milupka");
-//        commands.add(commandRow);
-//        replyKeyboardMarkup.setResizeKeyboard(true);
-//        replyKeyboardMarkup.setOneTimeKeyboard(true);
-//        replyKeyboardMarkup.setKeyboard(commands);
-//        replyKeyboardMarkup.setSelective(true);
-//        sendMessageRequest.setReplyMarkup(replyKeyboardMarkup);
-//        sendMessageRequest.setText("test3");
-//
-//        try {
-//            execute(sendMessageRequest);
-//        } catch (TelegramApiException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//}
 
 
 
