@@ -1,7 +1,7 @@
 package handlers.test;
 
 import adapter.message.TextMessage;
-import adapter.sender.Sender;
+import adapter.sender.ChatSenderI;
 import entity.Question;
 import entity.Ticket;
 import handlers.MainMenuStrategy;
@@ -19,13 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestStrategy implements Strategy {
-    private final Sender sender;
+    private final ChatSenderI sender;
     private Quiz quiz;
     private Strategy strategy = this;
     private static final List<Question> questionsList = new JSONToQuestion(QuestionToJSON.PATH).getQuestions();
 
 
-    public TestStrategy(Sender sender) {
+    public TestStrategy(ChatSenderI sender) {
         this.sender = sender;
     }
 
@@ -47,7 +47,7 @@ public class TestStrategy implements Strategy {
             if (userAnswer.equals("/stop")) {
                 goToMainMenu();
                 if (quiz != null) {
-                    quiz.sendResult(chatID);
+                    quiz.sendResult();
                 }
             }
         }

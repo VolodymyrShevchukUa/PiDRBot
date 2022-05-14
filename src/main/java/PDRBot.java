@@ -1,3 +1,4 @@
+import adapter.sender.ChatSender;
 import adapter.sender.SenderTelegrambots;
 import handlers.MainMenuStrategy;
 import handlers.Strategy;
@@ -7,6 +8,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import java.io.FileInputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 public class PDRBot extends SenderTelegrambots {
@@ -14,7 +17,7 @@ public class PDRBot extends SenderTelegrambots {
     private final static Properties PROPERTIES = getProperty();
     private final static String TELEGRAM_BOT_NAME = PROPERTIES.getProperty("bot.name");
     private final static String TELEGRAM_BOT_TOKEN = PROPERTIES.getProperty("bot.token");
-    private Strategy currentStrategy = new MainMenuStrategy(this);
+    private final Map<Long, Strategy> mapOfStrategy = new HashMap<>();
 
     // Також можна замутити це гавно через конструктор
     public static void main(String[] args) {
@@ -29,8 +32,20 @@ public class PDRBot extends SenderTelegrambots {
     @Override
     public void onUpdateReceived(Update update) {
         try {
+            long chatId;
+            if (update.hasCallbackQuery()) {
+                chatId = update.getCallbackQuery().getMessage().getChatId();
+            } else if (update.hasMessage()) {
+                chatId = update.getMessage().getChatId();
+            } else {
+                return;
+            }
+            Strategy currentStrategy = mapOfStrategy.get(chatId);
+            if (currentStrategy == null) {
+                currentStrategy = new MainMenuStrategy(new ChatSender(this, chatId));
+            }
             currentStrategy.onUpdateReceived(update);
-            currentStrategy = currentStrategy.getStrategy();
+            mapOfStrategy.put(chatId, currentStrategy.getStrategy());
         } catch (Exception e) {
             e.printStackTrace();
         }

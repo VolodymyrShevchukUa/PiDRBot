@@ -25,7 +25,6 @@ public class Ticket {
         for (Question q : questions) {
             queueOfTicketMessages.add(q.createMessage(chatID));
         }
-        System.out.println();
         return queueOfTicketMessages;
 
     }

@@ -9,9 +9,9 @@ import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-public abstract class SenderTelegrambots extends TelegramLongPollingBot implements Sender {
+public abstract class SenderTelegrambots extends TelegramLongPollingBot {
     // TODO:Add a logger
-    @Override
+
     public Message execute(MessageI message) {
         try {
             return tryToSend(message);
@@ -30,8 +30,6 @@ public abstract class SenderTelegrambots extends TelegramLongPollingBot implemen
             throw new UnsupportedOperationException("not implemented yet");
         }
     }
-
-    @Override
     public Message sendText(long chatID, String text) {
         return execute((MessageI) new TextMessage(chatID,text));
     }

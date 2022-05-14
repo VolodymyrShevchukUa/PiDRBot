@@ -1,7 +1,7 @@
 package entity.quiz;
 
 import adapter.message.MessageI;
-import adapter.sender.Sender;
+import adapter.sender.ChatSenderI;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
 import java.util.Queue;
@@ -11,13 +11,13 @@ public class QuizWithMarks extends Quiz {
     private final int countOfQuestion;
     private int numberOfAttempts;//
 
-    public QuizWithMarks(Queue<MessageI> queueOfTicketMessages, Sender sender) {
+    public QuizWithMarks(Queue<MessageI> queueOfTicketMessages, ChatSenderI sender) {
         super(queueOfTicketMessages, sender);
         countOfQuestion = queueOfTicketMessages.size();
         numberOfAttempts = countOfQuestion;
     }
 
-    public QuizWithMarks(Queue<MessageI> queueOfTicketMessages, Sender sender, int numberOfAttempts) {
+    public QuizWithMarks(Queue<MessageI> queueOfTicketMessages, ChatSenderI sender, int numberOfAttempts) {
         this(queueOfTicketMessages,sender);
         this.numberOfAttempts = numberOfAttempts;
     }
@@ -30,14 +30,14 @@ public class QuizWithMarks extends Quiz {
     @Override
     protected void processAnswer(CallbackQuery callbackQuery) {
         if (callbackQuery.getData().equals("true")) {
-            sendTextMessage(callbackQuery.getMessage().getChatId(),"✅ Відповідь правильна ✅");
+            sendTextMessage("✅ Відповідь правильна ✅");
             float ra = 100f / countOfQuestion;
             rightAnswer += ra;
         } else {
-            sendTextMessage(callbackQuery.getMessage().getChatId()," Відповідь хуйова ,правильна відповідь - доступна по преміум підписці");
+            sendTextMessage(" Відповідь хуйова ,правильна відповідь - доступна по преміум підписці");
             numberOfAttempts--;
             if (numberOfAttempts==0){
-                sendTextMessage(callbackQuery.getMessage().getChatId(),"Відповідь не правильна, спроби вичерпано");
+                sendTextMessage("Відповідь не правильна, спроби вичерпано");
             }
 
         }

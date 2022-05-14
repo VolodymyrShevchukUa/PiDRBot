@@ -1,8 +1,7 @@
 package entity.quiz;
 
 import adapter.message.MessageI;
-import adapter.message.TextMessage;
-import adapter.sender.Sender;
+import adapter.sender.ChatSenderI;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
@@ -13,9 +12,9 @@ import java.util.Queue;
 public abstract class Quiz {
     private final MessageIdCheck checker = new MessageIdCheck();
     private final Queue<MessageI> queueOfTicketMessages;
-    private final Sender sender;
+    private final ChatSenderI sender;
 
-    Quiz(Queue<MessageI> queueOfTicketMessages, Sender sender) {
+    Quiz(Queue<MessageI> queueOfTicketMessages, ChatSenderI sender) {
         this.queueOfTicketMessages = queueOfTicketMessages;
         this.sender = sender;
     }
@@ -34,7 +33,7 @@ public abstract class Quiz {
             checker.registrateProcessedMessageId(messageId);
             processAnswer(callbackQuery);
             if (isEnd()) {
-                sendResult(message.getChatId());
+                sendResult();
             } else {
                 Message execute = sender.execute(queueOfTicketMessages.poll());
                 checker.registrateNewMessageId(execute.getMessageId());
@@ -47,11 +46,11 @@ public abstract class Quiz {
         checker.registrateNewMessageId(sender.execute(queueOfTicketMessages.poll()).getMessageId());
     }
 
-    public void sendResult(long chatID) {
-        sender.sendText(chatID,getResult());
+    public void sendResult() {
+        sender.sendText(getResult());
     }
-    protected void sendTextMessage(long chatId,String text){
-        sender.sendText(chatId,text);
+    protected void sendTextMessage(String text){
+        sender.sendText(text);
     }
 
     private static class MessageIdCheck {
