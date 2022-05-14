@@ -17,9 +17,9 @@ public class PDRBot extends SenderTelegrambots {
     private final static Properties PROPERTIES = getProperty();
     private final static String TELEGRAM_BOT_NAME = PROPERTIES.getProperty("bot.name");
     private final static String TELEGRAM_BOT_TOKEN = PROPERTIES.getProperty("bot.token");
+    //#TODO: cleaning map by time interval
     private final Map<Long, Strategy> mapOfStrategy = new HashMap<>();
 
-    // Також можна замутити це гавно через конструктор
     public static void main(String[] args) {
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);

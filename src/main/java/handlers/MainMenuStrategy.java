@@ -22,11 +22,10 @@ public class MainMenuStrategy implements Strategy {
     @Override
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
-        long chatID = message.getChatId();
         switch (message.getText()) {
             case "/start":
                 TestStrategy testStrategy = new TestStrategy(sender);
-                testStrategy.sendButtons(chatID);
+                testStrategy.sendButtons();
                 nextStrategy = testStrategy;
                 break;
             case "/help":

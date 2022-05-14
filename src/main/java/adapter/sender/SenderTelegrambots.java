@@ -30,7 +30,4 @@ public abstract class SenderTelegrambots extends TelegramLongPollingBot {
             throw new UnsupportedOperationException("not implemented yet");
         }
     }
-    public Message sendText(long chatID, String text) {
-        return execute((MessageI) new TextMessage(chatID,text));
-    }
 }

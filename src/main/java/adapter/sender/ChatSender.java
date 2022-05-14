@@ -1,6 +1,7 @@
 package adapter.sender;
 
 import adapter.message.MessageI;
+import adapter.message.TextMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 public class ChatSender implements ChatSenderI {
@@ -14,11 +15,12 @@ public class ChatSender implements ChatSenderI {
 
     @Override
     public Message sendText(String text) {
-        return sender.sendText(chatID, text);
+        return execute(new TextMessage(text));
     }
 
     @Override
     public Message execute(MessageI messageI) {
+        messageI.setChatId(chatID + "");
         return sender.execute(messageI);
     }
 

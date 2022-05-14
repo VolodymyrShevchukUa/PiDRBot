@@ -43,13 +43,13 @@ public class Question {
         return !url.equals(NULL_IMAGE);
     }
 
-    public MessageI createMessage(long chatId) {
+    public MessageI createMessage() {
         InlineKeyboardMarkup inlineKeyboardMarkup = createInlineKeyboardButtonList();
         MessageI messageI;
         if (hasPhoto()) {
-            messageI = new PhotoMessage(chatId, caption, new InputFile(url), inlineKeyboardMarkup);
+            messageI = new PhotoMessage(caption, new InputFile(url), inlineKeyboardMarkup);
         } else {
-            messageI = new TextMessage(chatId, caption, inlineKeyboardMarkup);
+            messageI = new TextMessage(caption, inlineKeyboardMarkup);
         }
         return messageI;
     }

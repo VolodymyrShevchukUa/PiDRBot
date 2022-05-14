@@ -39,10 +39,9 @@ public class TestStrategy implements Strategy {
     }
 
     private void processMessage(Update update) {
-        long chatID = update.getMessage().getChatId();
         String userAnswer = update.getMessage().getText();
         if (!isQuizStarted()) {
-            tryToCreateQuiz(userAnswer, chatID);
+            tryToCreateQuiz(userAnswer);
         } else {
             if (userAnswer.equals("/stop")) {
                 goToMainMenu();
@@ -53,7 +52,7 @@ public class TestStrategy implements Strategy {
         }
     }
 
-    public void sendButtons(long chatId) {
+    public void sendButtons() {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         List<KeyboardRow> commands = new ArrayList<>();
         KeyboardRow commandRow = new KeyboardRow();
@@ -68,25 +67,25 @@ public class TestStrategy implements Strategy {
         replyKeyboardMarkup.setOneTimeKeyboard(true);
         replyKeyboardMarkup.setKeyboard(commands);
         replyKeyboardMarkup.setSelective(true);
-        TextMessage sendMessageRequest = new TextMessage(chatId, "Оберіть будь ласка кількість питань", replyKeyboardMarkup);
+        TextMessage sendMessageRequest = new TextMessage("Оберіть будь ласка кількість питань", replyKeyboardMarkup);
         sender.execute(sendMessageRequest);
     }
 
-    private void tryToCreateQuiz(String userAnswer, long chatID) {
+    private void tryToCreateQuiz(String userAnswer) {
         int countOfQuestion;
         try {
             countOfQuestion = Integer.parseInt(userAnswer);
         } catch (NumberFormatException e) {
-            sender.execute(new TextMessage(chatID, "Ви ввели не вірне число"));
-            sendButtons(chatID);
+            sender.execute(new TextMessage("Ви ввели не вірне число"));
+            sendButtons();
             return;
         }
         if (countOfQuestion == 10 || countOfQuestion == 20 || countOfQuestion == 30 || countOfQuestion == 40) {
-            quiz = new QuizWithTime(new Ticket(questionsList, countOfQuestion).getQueueOfTicketMessages(chatID), sender, 2);
+            quiz = new QuizWithTime(new Ticket(questionsList, countOfQuestion).getQueueOfTicketMessages(), sender, 2);
             quiz.sendFirstQuestion();
         } else {
-            sender.execute(new TextMessage(chatID, "Ви ввели не вірне число"));
-            sendButtons(chatID);
+            sender.execute(new TextMessage( "Ви ввели не вірне число"));
+            sendButtons();
         }
     }
 

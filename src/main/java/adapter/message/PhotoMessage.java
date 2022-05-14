@@ -5,13 +5,13 @@ import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 public class PhotoMessage extends SendPhoto implements MessageI {
-    public PhotoMessage(long chatId, String caption, InputFile inputFile, InlineKeyboardMarkup inlineKeyboardMarkup) {
-        this(chatId,caption,inputFile);
+    public PhotoMessage(String caption, InputFile inputFile, InlineKeyboardMarkup inlineKeyboardMarkup) {
+        this(caption,inputFile);
         setReplyMarkup(inlineKeyboardMarkup);
     }
-    public PhotoMessage(long chatId, String caption, InputFile inputFile){
-        setChatId(chatId+"");
+    public PhotoMessage(String caption, InputFile inputFile){
         setCaption(caption);
         setPhoto(inputFile);
     }
+
 }

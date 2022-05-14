@@ -20,10 +20,10 @@ public class Ticket {
         }
     }
 
-    public Queue<MessageI> getQueueOfTicketMessages(long chatID) {
+    public Queue<MessageI> getQueueOfTicketMessages() {
         Queue<MessageI> queueOfTicketMessages = new LinkedList<>();
         for (Question q : questions) {
-            queueOfTicketMessages.add(q.createMessage(chatID));
+            queueOfTicketMessages.add(q.createMessage());
         }
         return queueOfTicketMessages;
 
