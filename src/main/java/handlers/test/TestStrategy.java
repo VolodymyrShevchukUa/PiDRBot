@@ -6,6 +6,8 @@ import entity.Question;
 import entity.Ticket;
 import handlers.MainMenuStrategy;
 import handlers.Strategy;
+import entity.quiz.Quiz;
+import entity.quiz.QuizWithTime;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
@@ -80,7 +82,7 @@ public class TestStrategy implements Strategy {
             return;
         }
         if (countOfQuestion == 10 || countOfQuestion == 20 || countOfQuestion == 30 || countOfQuestion == 40) {
-            quiz = new QuizWithMarks(new Ticket(questionsList, countOfQuestion).getQueueOfTicketMessages(chatID), sender);
+            quiz = new QuizWithTime(new Ticket(questionsList, countOfQuestion).getQueueOfTicketMessages(chatID), sender, 2);
             quiz.sendFirstQuestion();
         } else {
             sender.execute(new TextMessage(chatID, "Ви ввели не вірне число"));

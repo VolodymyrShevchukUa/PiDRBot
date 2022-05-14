@@ -23,15 +23,20 @@ public class MainMenuStrategy implements Strategy {
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
         long chatID = message.getChatId();
+        if(message.hasText()){
         switch (message.getText()) {
             case "/start":
                 TestStrategy testStrategy = new TestStrategy(sender);
                 testStrategy.sendButtons(chatID);
                 nextStrategy = testStrategy;
                 break;
+            case "/help":
             default:
-                sender.sendText(chatID, "unknown Commmmmmand");
+                sender.sendText(chatID, "/help - опис команд, /start - почати тестування, вибір кількості питань, /stop - зупинка тесту");
                 break;
+        }
+        }else{
+            sender.sendText(chatID,"Ти ідіот?");
         }
     }
 }

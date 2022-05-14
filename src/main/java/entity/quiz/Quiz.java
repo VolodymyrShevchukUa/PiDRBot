@@ -1,4 +1,4 @@
-package handlers.test;
+package entity.quiz;
 
 import adapter.message.MessageI;
 import adapter.message.TextMessage;
@@ -20,8 +20,8 @@ public abstract class Quiz {
         this.sender = sender;
     }
 
-    abstract void processAnswer(CallbackQuery callbackQuery);
-    abstract String getResult();
+    protected abstract void processAnswer(CallbackQuery callbackQuery);
+    protected abstract String getResult();
 
     public boolean isEnd() {
         return queueOfTicketMessages.isEmpty();
@@ -42,12 +42,16 @@ public abstract class Quiz {
         }
     }
 
+
     public void sendFirstQuestion() {
         checker.registrateNewMessageId(sender.execute(queueOfTicketMessages.poll()).getMessageId());
     }
 
     public void sendResult(long chatID) {
-        sender.execute(new TextMessage(chatID, getResult()));
+        sender.sendText(chatID,getResult());
+    }
+    protected void sendTextMessage(long chatId,String text){
+        sender.sendText(chatId,text);
     }
 
     private static class MessageIdCheck {

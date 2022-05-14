@@ -57,10 +57,11 @@ public class Question {
     private InlineKeyboardMarkup createInlineKeyboardButtonList() {
         List<InlineKeyboardButton> buttons = new ArrayList<>();
         InlineKeyboardMarkup in = new InlineKeyboardMarkup();
+        int correct = correctButton+1;
         for (int i = 1; i < countOfButton; i++) {
             buttons.add(InlineKeyboardButton.builder()
-                    .callbackData(i == correctButton ? "true" : "false")
-                    .text(i + "✅")
+                    .callbackData(i == correct ? "true" : "false")
+                    .text(i+"")
                     .build());
         }
         in.setKeyboard(Collections.singletonList((buttons)));

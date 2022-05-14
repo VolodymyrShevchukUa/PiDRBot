@@ -1,4 +1,4 @@
-package handlers.test;
+package entity.quiz;
 
 import adapter.message.MessageI;
 import adapter.sender.Sender;
@@ -9,7 +9,7 @@ import java.util.Queue;
 public class QuizWithMarks extends Quiz {
     private float rightAnswer = 0;
     private final int countOfQuestion;
-    private final int numberOfAttempts;
+    private int numberOfAttempts;//
 
     public QuizWithMarks(Queue<MessageI> queueOfTicketMessages, Sender sender) {
         super(queueOfTicketMessages, sender);
@@ -18,23 +18,33 @@ public class QuizWithMarks extends Quiz {
     }
 
     public QuizWithMarks(Queue<MessageI> queueOfTicketMessages, Sender sender, int numberOfAttempts) {
-        super(queueOfTicketMessages, sender);
-        countOfQuestion = queueOfTicketMessages.size();
+        this(queueOfTicketMessages,sender);
         this.numberOfAttempts = numberOfAttempts;
     }
 
     @Override
-    void processAnswer(CallbackQuery callbackQuery) {
+    public boolean isEnd() {
+        return super.isEnd()||numberOfAttempts==0;
+    }
+
+    @Override
+    protected void processAnswer(CallbackQuery callbackQuery) {
         if (callbackQuery.getData().equals("true")) {
+            sendTextMessage(callbackQuery.getMessage().getChatId(),"✅ Відповідь правильна ✅");
             float ra = 100f / countOfQuestion;
             rightAnswer += ra;
         } else {
+            sendTextMessage(callbackQuery.getMessage().getChatId()," Відповідь хуйова ,правильна відповідь - доступна по преміум підписці");
+            numberOfAttempts--;
+            if (numberOfAttempts==0){
+                sendTextMessage(callbackQuery.getMessage().getChatId(),"Відповідь не правильна, спроби вичерпано");
+            }
 
         }
     }
 
     @Override
-    String getResult() {
+    protected String getResult() {
         return String.format("%.2f", rightAnswer) + "%";
     }
 
