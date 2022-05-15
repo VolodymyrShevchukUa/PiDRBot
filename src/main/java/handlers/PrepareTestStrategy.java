@@ -6,7 +6,6 @@ import entity.Question;
 import entity.quiz.Quiz;
 import entity.quiz.QuizWithMarks;
 import entity.quiz.QuizWithTime;
-import handlers.test.TestStrategy;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;

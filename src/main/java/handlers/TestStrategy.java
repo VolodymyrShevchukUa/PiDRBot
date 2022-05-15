@@ -1,4 +1,4 @@
-package handlers.test;
+package handlers;
 
 import adapter.sender.ChatSenderI;
 import entity.quiz.Quiz;
