@@ -2,8 +2,6 @@ package handlers;
 
 import adapter.sender.ChatSenderI;
 import entity.quiz.Quiz;
-import handlers.MainMenuStrategy;
-import handlers.Strategy;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 

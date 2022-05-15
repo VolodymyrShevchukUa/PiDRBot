@@ -1,6 +1,8 @@
-package utils.json;
+package utils;
 
 import entity.Question;
+import utils.json.JSONToQuestion;
+import utils.json.QuestionToJSON;
 
 import java.util.*;
 
@@ -13,8 +15,9 @@ public class QuestionCache {
         Set<Integer> ticketIndicator = new HashSet<>();
         Queue<Question> questions = new LinkedList<>();
         int totalSize = list.size();
+        Random r = new Random();
         while (questions.size() < size) {
-            int a = (int) (Math.random() * totalSize);
+            int a = r.nextInt(totalSize);
             if (!ticketIndicator.contains(a)) {
                 questions.add(list.get(a));
                 ticketIndicator.add(a);

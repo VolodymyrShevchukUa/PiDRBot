@@ -9,7 +9,7 @@ import entity.quiz.QuizWithTime;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
-import utils.json.QuestionCache;
+import utils.QuestionCache;
 
 import java.util.ArrayList;
 import java.util.List;
