@@ -1,7 +1,7 @@
 package entity.quiz;
 
-import adapter.message.MessageI;
 import adapter.sender.ChatSenderI;
+import entity.Question;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
 import java.util.Queue;
@@ -13,13 +13,13 @@ public class QuizWithTime extends QuizWithMarks {
     private final long  totalTime;
 
 
-    public QuizWithTime(Queue<MessageI> queueOfTicketMessages, ChatSenderI sender) {
-        this(queueOfTicketMessages, sender, queueOfTicketMessages.size());
+    public QuizWithTime(Queue<Question> queueOfQuestion, ChatSenderI sender) {
+        this(queueOfQuestion, sender, queueOfQuestion.size());
     }
 
-    public QuizWithTime(Queue<MessageI> queueOfTicketMessages, ChatSenderI sender, int numberOfAttempts) {
-        super(queueOfTicketMessages, sender, numberOfAttempts);
-        totalTime = TimeUnit.MINUTES.toMillis(queueOfTicketMessages.size());
+    public QuizWithTime(Queue<Question> queueOfQuestion, ChatSenderI sender, int numberOfAttempts) {
+        super(queueOfQuestion, sender, numberOfAttempts);
+        totalTime = TimeUnit.MINUTES.toMillis(queueOfQuestion.size());
     }
 
     @Override

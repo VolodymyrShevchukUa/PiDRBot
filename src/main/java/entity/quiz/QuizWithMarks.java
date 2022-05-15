@@ -1,7 +1,7 @@
 package entity.quiz;
 
-import adapter.message.MessageI;
 import adapter.sender.ChatSenderI;
+import entity.Question;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 
 import java.util.Queue;
@@ -9,16 +9,16 @@ import java.util.Queue;
 public class QuizWithMarks extends Quiz {
     private float rightAnswer = 0;
     private final int countOfQuestion;
-    private int numberOfAttempts;//
+    private int numberOfAttempts;
 
-    public QuizWithMarks(Queue<MessageI> queueOfTicketMessages, ChatSenderI sender) {
-        super(queueOfTicketMessages, sender);
-        countOfQuestion = queueOfTicketMessages.size();
+    public QuizWithMarks(Queue<Question> queueOfQuestion, ChatSenderI sender) {
+        super(queueOfQuestion, sender);
+        countOfQuestion = queueOfQuestion.size();
         numberOfAttempts = countOfQuestion;
     }
 
-    public QuizWithMarks(Queue<MessageI> queueOfTicketMessages, ChatSenderI sender, int numberOfAttempts) {
-        this(queueOfTicketMessages,sender);
+    public QuizWithMarks(Queue<Question> queueOfQuestion, ChatSenderI sender, int numberOfAttempts) {
+        this(queueOfQuestion,sender);
         this.numberOfAttempts = numberOfAttempts;
     }
 
@@ -39,7 +39,6 @@ public class QuizWithMarks extends Quiz {
             if (numberOfAttempts==0){
                 sendTextMessage("Відповідь не правильна, спроби вичерпано");
             }
-
         }
     }
 

@@ -2,7 +2,6 @@ package handlers;
 
 
 import adapter.sender.ChatSenderI;
-import handlers.test.TestStrategy;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -24,9 +23,7 @@ public class MainMenuStrategy implements Strategy {
         Message message = update.getMessage();
         switch (message.getText()) {
             case "/start":
-                TestStrategy testStrategy = new TestStrategy(sender);
-                testStrategy.sendButtons();
-                nextStrategy = testStrategy;
+                nextStrategy = new PrepareTestStrategy(sender);
                 break;
             case "/help":
             default:

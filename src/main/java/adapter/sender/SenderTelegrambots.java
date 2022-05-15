@@ -2,7 +2,6 @@ package adapter.sender;
 
 
 import adapter.message.MessageI;
-import adapter.message.TextMessage;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;

@@ -1,7 +1,7 @@
 package entity.quiz;
 
-import adapter.message.MessageI;
 import adapter.sender.ChatSenderI;
+import entity.Question;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
@@ -11,11 +11,11 @@ import java.util.Queue;
 
 public abstract class Quiz {
     private final MessageIdCheck checker = new MessageIdCheck();
-    private final Queue<MessageI> queueOfTicketMessages;
+    private final Queue<Question> queueOfQuestion;
     private final ChatSenderI sender;
 
-    Quiz(Queue<MessageI> queueOfTicketMessages, ChatSenderI sender) {
-        this.queueOfTicketMessages = queueOfTicketMessages;
+    Quiz(Queue<Question> queueOfQuestion, ChatSenderI sender) {
+        this.queueOfQuestion = queueOfQuestion;
         this.sender = sender;
     }
 
@@ -23,7 +23,7 @@ public abstract class Quiz {
     protected abstract String getResult();
 
     public boolean isEnd() {
-        return queueOfTicketMessages.isEmpty();
+        return queueOfQuestion.isEmpty();
     }
 
     public void processCallbackQuery(CallbackQuery callbackQuery) {
@@ -35,7 +35,8 @@ public abstract class Quiz {
             if (isEnd()) {
                 sendResult();
             } else {
-                Message execute = sender.execute(queueOfTicketMessages.poll());
+                Question question = queueOfQuestion.poll();
+                Message execute = sender.execute(question.createMessage());
                 checker.registrateNewMessageId(execute.getMessageId());
             }
         }
@@ -43,7 +44,9 @@ public abstract class Quiz {
 
 
     public void sendFirstQuestion() {
-        checker.registrateNewMessageId(sender.execute(queueOfTicketMessages.poll()).getMessageId());
+        Question question = queueOfQuestion.poll();
+        Message execute = sender.execute(question.createMessage());
+        checker.registrateNewMessageId(execute.getMessageId());
     }
 
     public void sendResult() {
