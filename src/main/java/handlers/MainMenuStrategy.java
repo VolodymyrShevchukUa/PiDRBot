@@ -23,7 +23,9 @@ public class MainMenuStrategy implements Strategy {
         Message message = update.getMessage();
         switch (message.getText()) {
             case "/start":
-                nextStrategy = new PrepareTestStrategy(sender);
+                PrepareTestStrategy nextStrategy = new PrepareTestStrategy(sender);
+                nextStrategy.sendButtonsForMenu1();
+                this.nextStrategy = nextStrategy;
                 break;
             case "/help":
             default:
