@@ -21,10 +21,12 @@ public class StrategyStore {
     }
 
     public Strategy getStrategyByChatId(long chatId) {
-        Pair<Strategy, Long> strategyLongPair = mapOfStrategy.computeIfAbsent(chatId, k -> new Pair<>(new MainMenuStrategy(new ChatSender(sender, chatId)), System.currentTimeMillis()));
-        return strategyLongPair.getFirst();
+        return mapOfStrategy.computeIfAbsent(chatId,
+                        k -> new Pair<>(
+                                new MainMenuStrategy(new ChatSender(sender, chatId)),
+                                System.currentTimeMillis()))
+                .getFirst();
     }
-
 
     public void saveNewStrategyByChatId(long chatId, Strategy newStrategy) {
         mapOfStrategy.put(chatId, new Pair<>(newStrategy, System.currentTimeMillis()));
