@@ -29,7 +29,8 @@ public class QuizWithMarks extends Quiz {
 
     @Override
     protected void processAnswer(CallbackQuery callbackQuery) {
-        if (callbackQuery.getData().equals("true")) {
+        super.processAnswer(callbackQuery);
+        if (isAnswerTrue()) {
             sendTextMessage("✅ Відповідь правильна ✅");
             float ra = 100f / countOfQuestion;
             rightAnswer += ra;

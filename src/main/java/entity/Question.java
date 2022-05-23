@@ -57,15 +57,21 @@ public class Question {
     private InlineKeyboardMarkup createInlineKeyboardButtonList() {
         List<InlineKeyboardButton> buttons = new ArrayList<>();
         InlineKeyboardMarkup in = new InlineKeyboardMarkup();
-        int correct = correctButton+1;
+        int correct = correctButton + 1;
         for (int i = 1; i < countOfButton; i++) {
             buttons.add(InlineKeyboardButton.builder()
-                    .callbackData(i == correct ? "true" : "false")
-                    .text(i+"")
+                    .callbackData(createCallbackData(i == correct, i))
+                    .text(i + "")
                     .build());
         }
         in.setKeyboard(Collections.singletonList((buttons)));
         return in;
+    }
+
+    public static final String SEPARATOR = " ";
+
+    private static String createCallbackData(boolean isTrue, int index) {
+        return isTrue + SEPARATOR + index;
     }
 
     public JSONObject toJSONObject() {

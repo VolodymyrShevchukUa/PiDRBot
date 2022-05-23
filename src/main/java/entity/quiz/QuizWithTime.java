@@ -12,11 +12,6 @@ public class QuizWithTime extends QuizWithMarks {
     private long currentTime;
     private final long  totalTime;
 
-
-    public QuizWithTime(Queue<Question> queueOfQuestion, ChatSenderI sender) {
-        this(queueOfQuestion, sender, queueOfQuestion.size());
-    }
-
     public QuizWithTime(Queue<Question> queueOfQuestion, ChatSenderI sender, int numberOfAttempts) {
         super(queueOfQuestion, sender, numberOfAttempts);
         totalTime = TimeUnit.MINUTES.toMillis(queueOfQuestion.size());

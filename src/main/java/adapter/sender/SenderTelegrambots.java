@@ -5,6 +5,7 @@ import adapter.message.MessageI;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
@@ -22,9 +23,11 @@ public abstract class SenderTelegrambots extends TelegramLongPollingBot {
 
     private Message tryToSend(MessageI message) throws TelegramApiException {
         if (message instanceof SendMessage) {
-             return execute((SendMessage)message);
+            return execute((SendMessage) message);
         } else if (message instanceof SendPhoto) {
-            return execute((SendPhoto)message);
+            return execute((SendPhoto) message);
+        } else if (message instanceof EditMessageReplyMarkup) {
+            return (Message) execute((EditMessageReplyMarkup) message);
         } else {
             throw new UnsupportedOperationException("not implemented yet");
         }
