@@ -31,7 +31,7 @@ public abstract class Quiz {
     private void updateLastMessage(Message message) {
         String text = userAnswer.isCurrentQuestionTrue() ? "true" : "false";
         EditMessageReplyMarkupMessage editMessageReplyMarkupMessage = new ButtonMessageUpdater(message)
-                .addTextToButton(0, userAnswer.getIndexOfUsedButton() - 1, text);
+                .showAnswer();
         sender.execute(editMessageReplyMarkupMessage);
     }
 

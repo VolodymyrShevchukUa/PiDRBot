@@ -60,7 +60,7 @@ public class Question {
         int correct = correctButton + 1;
         for (int i = 1; i < countOfButton; i++) {
             buttons.add(InlineKeyboardButton.builder()
-                    .callbackData(createCallbackData(i == correct, i))
+                    .callbackData((i == correct)+"")
                     .text(i + "")
                     .build());
         }
@@ -68,11 +68,7 @@ public class Question {
         return in;
     }
 
-    public static final String SEPARATOR = " ";
 
-    private static String createCallbackData(boolean isTrue, int index) {
-        return isTrue + SEPARATOR + index;
-    }
 
     public JSONObject toJSONObject() {
         JSONObject jsonObject = new JSONObject();
