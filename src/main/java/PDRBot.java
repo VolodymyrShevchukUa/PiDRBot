@@ -1,5 +1,7 @@
 import adapter.sender.SenderTelegrambots;
 import handlers.Strategy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -8,15 +10,17 @@ import utils.MyProperties;
 import utils.StrategyStore;
 
 public class PDRBot extends SenderTelegrambots {
+
+    private static final Logger logger = LoggerFactory.getLogger(PDRBot.class);
     private final StrategyStore strategyStore = new StrategyStore(this);
 
     public static void main(String[] args) {
+        logger.info("Bot started");
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
             telegramBotsApi.registerBot(new PDRBot());
         } catch (TelegramApiException e) {
-            //#TODO
-            e.printStackTrace();
+            logger.error("ERROR in Main method", e);
         }
     }
 
@@ -31,8 +35,7 @@ public class PDRBot extends SenderTelegrambots {
                 strategyStore.saveNewStrategyByChatId(chatId, newStrategy);
             }
         } catch (Exception e) {
-            //#TODO
-            e.printStackTrace();
+            logger.error("ERROR in PDRBot.onUpdateReceived method", e);
         }
     }
 
