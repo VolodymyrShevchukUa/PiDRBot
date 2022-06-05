@@ -10,10 +10,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class StrategyStore {
     private final SenderTelegrambots sender;
     private final Map<Long, Pair<Strategy, Long>> mapOfStrategy = new HashMap<>();
+
+    private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+
+    private final ReentrantReadWriteLock.ReadLock read = lock.readLock();
+    private final ReentrantReadWriteLock.WriteLock write = lock.writeLock();
 
     public StrategyStore(SenderTelegrambots sender) {
         this.sender = sender;
@@ -21,26 +27,40 @@ public class StrategyStore {
     }
 
     public Strategy getStrategyByChatId(long chatId) {
-        return mapOfStrategy.computeIfAbsent(chatId,
-                        k -> new Pair<>(
-                                new MainMenuStrategy(new ChatSender(sender, chatId)),
-                                System.currentTimeMillis()))
-                .getFirst();
+        try {
+            read.lock();
+            return mapOfStrategy.computeIfAbsent(chatId, this::createMainMenuStrategy).getFirst();
+        } finally {
+            read.unlock();
+        }
     }
 
+    private Pair<Strategy, Long> createMainMenuStrategy(Long chatId) {
+        return new Pair<>(new MainMenuStrategy(new ChatSender(sender, chatId)), System.currentTimeMillis());
+    }
+
+
     public void saveNewStrategyByChatId(long chatId, Strategy newStrategy) {
-        mapOfStrategy.put(chatId, new Pair<>(newStrategy, System.currentTimeMillis()));
+        try {
+            read.lock();
+            mapOfStrategy.put(chatId, new Pair<>(newStrategy, System.currentTimeMillis()));
+        } finally {
+            read.unlock();
+        }
     }
 
     private void cleanUpMap() {
         //#TODO: add Logger
-        synchronized (mapOfStrategy) {
+        try {
+            write.lock();
             for (Map.Entry<Long, Pair<Strategy, Long>> ent : mapOfStrategy.entrySet()) {
                 long lastTimeExecuted = ent.getValue().getSecond();
                 if (TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - lastTimeExecuted) > 7) {
                     mapOfStrategy.remove(ent.getKey());
                 }
             }
+        } finally {
+            write.unlock();
         }
     }
 
