@@ -6,4 +6,6 @@ public interface Strategy {
     Strategy getStrategy();
     void onUpdateReceived(Update update);
 
+    default void sendCommands(){}
+
 }

@@ -20,6 +20,12 @@ public class TestStrategy implements Strategy {
         return strategy;
     }
 
+    @Override
+    public void sendCommands() {
+        //#TODO
+        quiz.sendFirstQuestion();
+    }
+
     private void processMessage(Update update) {
         String userAnswer = update.getMessage().getText();
         if (userAnswer.equals("/stop")) {
