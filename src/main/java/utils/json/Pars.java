@@ -8,24 +8,21 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-// робив не я
+
+
 public class Pars {
     private final String url;
-    private final int pages;
 
-    public Pars(String url, int pages) {
+    public Pars(String url) {
         this.url = url;
-        this.pages = pages;
     }
+
     public List<Question> pars() {
         List<Question> result = new ArrayList<>();
-        for (int i = 1; i <= pages; i++) {
-            String currentURL = url + i;
-            try {
-                result.addAll(parseURL(currentURL));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        try {
+            result.addAll(parseURL(url));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return result;
     }
@@ -34,21 +31,18 @@ public class Pars {
         List<Question> result = new ArrayList<>();
         Document doc = Jsoup.connect(url).get();
         Element boxOfQuestion = doc.select("ul.ticketpage_ul").first();
-        for (Element curr : boxOfQuestion.children()){
-            if (curr.selectFirst("div.title_ticket")==null){
+        for (Element curr : boxOfQuestion.children()) {
+            if (curr.selectFirst("div.title_ticket") == null) {
                 continue;
             }
-
-//            String ticketNumber = curr.selectFirst("div.title_ticket").text();
             result.add(createQuestion(curr));
         }
         return result;
     }
 
 
-
     private Question createQuestion(Element current) {
-        String caption = current.selectFirst("p").text();
+        StringBuilder caption = new StringBuilder(current.selectFirst("p").text());
         String image = "https://vodiy.ua" + current.selectFirst("img").attr("src");
         int index = 1;
         int correct = 0;
@@ -56,10 +50,13 @@ public class Pars {
             if (e.selectFirst("input").attr("rel").equals("rt1")) {
                 correct = index - 1;
             }
-            caption = caption + "\n" + index + ") " + e.selectFirst("span.span_text").text();
+            caption.append("\n").append(index).append(") ").append(e.selectFirst("span.span_text").text());
             index++;
         }
-        return new Question(image, correct, caption, index);
+        if (image.equals("https://vodiy.ua/static/img/com_2.png")) {
+            image = Question.NULL_IMAGE;
+        }
+        return new Question(image, correct, caption.toString(), index);
 
     }
 }

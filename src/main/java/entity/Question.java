@@ -12,24 +12,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-// Екземпляр класу questions матиме два параметри,
-// Їх ми пробуєм записати в масив [] об'єктів questions {} в JSON
 public class Question {
     public static final String NULL_IMAGE = "null image";
-    public static final String CAPTION = "Caption";
-    public static final String CORRECT_BUTTON = "CorrectButton";
-    public static final String URL = "Url";
-    public static final String COUNT_OF_BUTTON = "CountOfButton";
-    private final String caption;
+    private static final String CAPTION_LABEL = "Caption";
+    private static final String CORRECT_BUTTON_LABEL = "CorrectButton";
+    private static final String URL_LABEL = "Url";
+    private static final String COUNT_OF_BUTTON_LABEL = "CountOfButton";
+    private static final String THEME_LABEL = "theme";
+    public final String caption;
     private final String url;
     private final int correctButton;
     private final int countOfButton;
 
+    private int theme;
+
     public Question(JSONObject jsonObject) {
-        url = jsonObject.getString(URL);
-        correctButton = jsonObject.getInt(CORRECT_BUTTON);
-        countOfButton = jsonObject.getInt(COUNT_OF_BUTTON);
-        caption = jsonObject.getString(CAPTION);
+        url = jsonObject.getString(URL_LABEL);
+        correctButton = jsonObject.getInt(CORRECT_BUTTON_LABEL);
+        countOfButton = jsonObject.getInt(COUNT_OF_BUTTON_LABEL);
+        caption = jsonObject.getString(CAPTION_LABEL);
+        theme = jsonObject.getInt(THEME_LABEL);
     }
 
     public Question(String image, int correctButton, String caption, int button) {
@@ -37,6 +39,10 @@ public class Question {
         this.correctButton = correctButton;
         this.caption = caption;
         this.countOfButton = button;
+    }
+
+    public void setTheme(int theme) {
+        this.theme = theme;
     }
 
     private boolean hasPhoto() {
@@ -60,7 +66,7 @@ public class Question {
         int correct = correctButton + 1;
         for (int i = 1; i < countOfButton; i++) {
             buttons.add(InlineKeyboardButton.builder()
-                    .callbackData((i == correct)+"")
+                    .callbackData((i == correct) + "")
                     .text(i + "")
                     .build());
         }
@@ -69,13 +75,13 @@ public class Question {
     }
 
 
-
     public JSONObject toJSONObject() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(CAPTION, caption);
-        jsonObject.put(CORRECT_BUTTON, correctButton);
-        jsonObject.put(URL, url);
-        jsonObject.put(COUNT_OF_BUTTON, correctButton);
+        jsonObject.put(CAPTION_LABEL, caption);
+        jsonObject.put(CORRECT_BUTTON_LABEL, correctButton);
+        jsonObject.put(URL_LABEL, url);
+        jsonObject.put(COUNT_OF_BUTTON_LABEL, countOfButton);
+        jsonObject.put(THEME_LABEL, theme);
         return jsonObject;
     }
 }

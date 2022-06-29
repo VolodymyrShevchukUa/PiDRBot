@@ -25,7 +25,7 @@ public class CreateTestStrategyMenu1Handler extends NavigationButtons {
         List<List<String>> buttons = new ArrayList<>();
         List<String> firstRow = new ArrayList<>();
         firstRow.add(ALL_QUESTION);
-//            firstRow.add(QUESTION_BY_SUBJECT);
+        firstRow.add(QUESTION_BY_SUBJECT);
         List<String> secondRow = new ArrayList<>();
         secondRow.add(REAL_TEST);
         buttons.add(firstRow);

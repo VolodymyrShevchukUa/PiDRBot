@@ -11,7 +11,7 @@ import java.util.Queue;
 
 public class QuizBuilder {
     private Integer countOfQuestion = null;
-    private String nameOfSubject = null;
+    private Double theme = null;
     private boolean isRealTest = false;
     private boolean isWithTime = false;
 
@@ -19,8 +19,8 @@ public class QuizBuilder {
         this.countOfQuestion = countOfQuestion;
     }
 
-    public void setNameOfSubject(String nameOfSubject) {
-        this.nameOfSubject = nameOfSubject;
+    public void setTheme(Double theme) {
+        this.theme = theme;
     }
 
     public void setRealTest(boolean realTest) {
@@ -32,9 +32,12 @@ public class QuizBuilder {
     }
 
     public Quiz build(ChatSenderI sender) {
-        Queue<Question> questionsList = nameOfSubject == null ?
+        if (countOfQuestion==null){
+            countOfQuestion=20;
+        }
+        Queue<Question> questionsList = theme == null ?
                 QuestionCache.getQuestionsListWithSize(countOfQuestion)
-                : QuestionCache.getQuestionsListWithSizeAndSubject(countOfQuestion, nameOfSubject);
+                : QuestionCache.getQuestionsListWithSizeAndSubject(countOfQuestion, theme);
         int numberOfAttempts = isRealTest ? 2 : questionsList.size();
         return isWithTime ?
                 new QuizWithTime(questionsList, sender, numberOfAttempts)

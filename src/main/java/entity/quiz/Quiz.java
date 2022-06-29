@@ -29,7 +29,6 @@ public abstract class Quiz {
     }
 
     private void updateLastMessage(Message message) {
-        String text = userAnswer.isCurrentQuestionTrue() ? "true" : "false";
         EditMessageReplyMarkupMessage editMessageReplyMarkupMessage = new ButtonMessageUpdater(message)
                 .showAnswer();
         sender.execute(editMessageReplyMarkupMessage);
@@ -56,9 +55,7 @@ public abstract class Quiz {
     }
 
     private void sendNextQuestion() {
-        Question currentQuestion = queueOfQuestion.poll();
-        Message execute = sender.execute(currentQuestion.createMessage());
-        checker.registrateNewMessageId(execute.getMessageId());
+        checker.registrateNewMessageId(sender.execute( queueOfQuestion.poll().createMessage()).getMessageId());
     }
 
     public void sendFirstQuestion() {
@@ -68,7 +65,8 @@ public abstract class Quiz {
     public void sendResult() {
         sender.sendText(getResult());
     }
-    protected void sendTextMessage(String text){
+
+    protected void sendTextMessage(String text) {
         sender.sendText(text);
     }
 
