@@ -48,16 +48,16 @@ public class CreateTestStrategyMenu1Handler extends NavigationButtons {
         String userAnswer = update.getMessage().getText();
         switch (userAnswer) {
             case ALL_QUESTION:
-                setNextSt(new CreateTestStrategyMenu3Handler(this, sender, quizBuilder));
+                setNextSt(new CreateTestStrategyMenu3Handler(this, quizBuilder));
                 break;
             case QUESTION_BY_SUBJECT:
-                setNextSt(new CreateTestStrategyMenu2Handler(this, sender, quizBuilder));
+                setNextSt(new CreateTestStrategyMenu2Handler(this, quizBuilder));
                 break;
             case REAL_TEST:
                 quizBuilder.setRealTest(true);
                 quizBuilder.setWithTime(true);
                 quizBuilder.setCountOfQuestion(20);
-                setNextSt(new CreateTestStrategyMenuEndHandler(this, sender, quizBuilder));
+                setNextSt(new CreateTestStrategyMenuEndHandler(this, quizBuilder));
                 break;
             default:
                 break;

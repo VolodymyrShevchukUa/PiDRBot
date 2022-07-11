@@ -1,9 +1,7 @@
 package handlers.prepare.test.strategy;
 
 import adapter.message.TextMessage;
-import adapter.sender.ChatSenderI;
 import handlers.NavigationButtons;
-import handlers.Strategy;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.ArrayList;
@@ -33,8 +31,8 @@ public class CreateTestStrategyMenu4Handler extends NavigationButtons {
         sender.execute(new TextMessage("Обмеження по часу?(1 питання 1 хвилина)", listOfCommands));
     }
 
-    protected CreateTestStrategyMenu4Handler(Strategy previousSt, ChatSenderI sender, QuizBuilder quizBuilder) {
-        super(previousSt, sender);
+    protected CreateTestStrategyMenu4Handler(NavigationButtons previousSt, QuizBuilder quizBuilder) {
+        super(previousSt);
         this.quizBuilder = quizBuilder;
     }
 
@@ -44,10 +42,10 @@ public class CreateTestStrategyMenu4Handler extends NavigationButtons {
         switch (userAnswer) {
             case WITH_LIMIT:
                 quizBuilder.setWithTime(true);
-                setNextSt(new CreateTestStrategyMenuEndHandler(this, sender, quizBuilder));
+                setNextSt(new CreateTestStrategyMenuEndHandler(this, quizBuilder));
                 break;
             case WITHOUT_LIMIT:
-                setNextSt(new CreateTestStrategyMenuEndHandler(this, sender, quizBuilder));
+                setNextSt(new CreateTestStrategyMenuEndHandler(this,  quizBuilder));
                 break;
             default:
                 break;

@@ -1,9 +1,7 @@
 package handlers.prepare.test.strategy;
 
 import adapter.message.TextMessage;
-import adapter.sender.ChatSenderI;
 import handlers.NavigationButtons;
-import handlers.Strategy;
 import handlers.TestStrategy;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -33,8 +31,8 @@ public class CreateTestStrategyMenuEndHandler extends NavigationButtons {
         sender.execute(new TextMessage("Are you fucking ready?", listOfCommands));
     }
 
-    protected CreateTestStrategyMenuEndHandler(Strategy previousSt, ChatSenderI sender, QuizBuilder quizBuilder) {
-        super(previousSt, sender);
+    protected CreateTestStrategyMenuEndHandler(NavigationButtons previousSt, QuizBuilder quizBuilder) {
+        super(previousSt);
         this.quizBuilder = quizBuilder;
     }
 

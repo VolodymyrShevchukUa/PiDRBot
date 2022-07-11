@@ -4,19 +4,18 @@ import adapter.message.EditMessageReplyMarkupMessage;
 import adapter.message.updaters.ButtonMessageUpdater;
 import adapter.sender.ChatSenderI;
 import entity.Question;
-import entity.QuestionAnswer;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Queue;
 
 public abstract class Quiz {
     private final MessageIdCheck checker = new MessageIdCheck();
     private final Queue<Question> queueOfQuestion;
     private final ChatSenderI sender;
-    private QuestionAnswer userAnswer;
 
     Quiz(Queue<Question> queueOfQuestion, ChatSenderI sender) {
         this.queueOfQuestion = queueOfQuestion;
@@ -24,7 +23,6 @@ public abstract class Quiz {
     }
 
     protected void processAnswer(CallbackQuery callbackQuery) {
-        userAnswer = QuestionAnswer.parseCallbackQueryData(callbackQuery.getData());
         updateLastMessage(callbackQuery.getMessage());
     }
 
@@ -55,7 +53,7 @@ public abstract class Quiz {
     }
 
     private void sendNextQuestion() {
-        checker.registrateNewMessageId(sender.execute( queueOfQuestion.poll().createMessage()).getMessageId());
+        checker.registrateNewMessageId(sender.execute( Objects.requireNonNull(queueOfQuestion.poll()).createMessage()).getMessageId());
     }
 
     public void sendFirstQuestion() {
@@ -68,10 +66,6 @@ public abstract class Quiz {
 
     protected void sendTextMessage(String text) {
         sender.sendText(text);
-    }
-
-    protected boolean isAnswerTrue() {
-        return userAnswer.isCurrentQuestionTrue();
     }
 
     private static class MessageIdCheck {

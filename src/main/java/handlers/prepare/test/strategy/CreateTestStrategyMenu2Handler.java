@@ -1,9 +1,7 @@
 package handlers.prepare.test.strategy;
 
 import adapter.message.TextMessage;
-import adapter.sender.ChatSenderI;
 import handlers.NavigationButtons;
-import handlers.Strategy;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import utils.QuestionCache;
 
@@ -29,8 +27,8 @@ public class CreateTestStrategyMenu2Handler extends NavigationButtons {
         sender.execute(new TextMessage(QuestionCache.TEXT_VERSION_OF_LIST_THEME, listOfCommands));
     }
 
-    protected CreateTestStrategyMenu2Handler(Strategy previousSt, ChatSenderI sender, QuizBuilder quizBuilder) {
-        super(previousSt, sender);
+    protected CreateTestStrategyMenu2Handler(NavigationButtons previousSt, QuizBuilder quizBuilder) {
+        super(previousSt);
         this.quizBuilder = quizBuilder;
     }
 
@@ -41,7 +39,7 @@ public class CreateTestStrategyMenu2Handler extends NavigationButtons {
             double d = Double.parseDouble(userAnswer);
             if (QuestionCache.validateThemeNumber(d)) {
                 quizBuilder.setTheme(d);
-                setNextSt(new CreateTestStrategyMenu4Handler(this, sender, quizBuilder));
+                setNextSt(new CreateTestStrategyMenu4Handler(this, quizBuilder));
             } else {
                 sender.sendText("нісенітниця");
             }

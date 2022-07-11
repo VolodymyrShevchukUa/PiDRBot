@@ -1,9 +1,7 @@
 package handlers.prepare.test.strategy;
 
 import adapter.message.TextMessage;
-import adapter.sender.ChatSenderI;
 import handlers.NavigationButtons;
-import handlers.Strategy;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.ArrayList;
@@ -35,8 +33,8 @@ public class CreateTestStrategyMenu3Handler extends NavigationButtons {
         sender.execute(new TextMessage("Оберіть кількість питань", listOfCommands));
     }
 
-    protected CreateTestStrategyMenu3Handler(Strategy previousSt, ChatSenderI sender, QuizBuilder quizBuilder) {
-        super(previousSt, sender);
+    protected CreateTestStrategyMenu3Handler(NavigationButtons previousSt, QuizBuilder quizBuilder) {
+        super(previousSt);
         this.quizBuilder = quizBuilder;
     }
 
@@ -47,7 +45,7 @@ public class CreateTestStrategyMenu3Handler extends NavigationButtons {
             int countOfQuestion = Integer.parseInt(userAnswer);
             if (countOfQuestion == 10 || countOfQuestion == 20 || countOfQuestion == 30 || countOfQuestion == 40) {
                 quizBuilder.setCountOfQuestion(countOfQuestion);
-                setNextSt(new CreateTestStrategyMenu4Handler(this, sender, quizBuilder));
+                setNextSt(new CreateTestStrategyMenu4Handler(this, quizBuilder));
             } else {
                 sender.execute(new TextMessage("Ви ввели не вірне число"));
             }

@@ -28,6 +28,11 @@ public abstract class NavigationButtons implements Strategy {
         return row;
     }
 
+    protected NavigationButtons(NavigationButtons previousSt) {
+        this.previousSt = previousSt;
+        this.sender = previousSt.sender;
+    }
+
     protected NavigationButtons(Strategy previousSt, ChatSenderI sender) {
         this.previousSt = previousSt;
         this.sender = sender;
