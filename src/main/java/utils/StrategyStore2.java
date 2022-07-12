@@ -12,8 +12,11 @@ public class StrategyStore2 extends AutoCleaningMap<Long, Strategy> {
         this.sender = sender;
     }
 
-    @Override
     protected Strategy factory(Long chatId) {
         return new MainMenuStrategy(new ChatSender(sender, chatId));
+    }
+
+    public Strategy computeIfAbsent(long chatId) {
+        return computeIfAbsent(chatId, this::factory);
     }
 }

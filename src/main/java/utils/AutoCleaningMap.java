@@ -7,32 +7,33 @@ import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.function.Function;
 
-public abstract class AutoCleaningMap<K, V> {
+public class AutoCleaningMap<K, V> {
     private final Map<K, Pair<V, Long>> map = new HashMap<>();
     private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
     private final ReentrantReadWriteLock.ReadLock read = lock.readLock();
     private final ReentrantReadWriteLock.WriteLock write = lock.writeLock();
 
-    protected AutoCleaningMap() {
+    public AutoCleaningMap() {
         Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(this::cleanUpMap, 7, 7, TimeUnit.DAYS);
     }
-
-    public V computeIfAbsent(K key) {
+    public V get(K key) {
         try {
             read.lock();
-            return map.computeIfAbsent(key, this::createPairByKey).getFirst();
+            return map.get(key).getFirst();
         } finally {
             read.unlock();
         }
     }
-
-    private Pair<V, Long> createPairByKey(K key) {
-        return new Pair<>(factory(key), System.currentTimeMillis());
+    public V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction) {
+        try {
+            read.lock();
+            return map.computeIfAbsent(key, k -> new Pair<>(mappingFunction.apply(k), System.currentTimeMillis())).getFirst();
+        } finally {
+            read.unlock();
+        }
     }
-
-    protected abstract V factory(K key);
-
 
     public void put(K key, V value) {
         try {

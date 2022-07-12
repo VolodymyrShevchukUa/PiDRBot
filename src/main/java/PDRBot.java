@@ -14,7 +14,7 @@ import utils.StrategyStore2;
 public class PDRBot extends SenderTelegrambots {
 
     private static final Logger logger = LoggerFactory.getLogger(PDRBot.class);
-    private final AutoCleaningMap<Long, Strategy> strategyStore = new StrategyStore2(this);
+    private final StrategyStore2 strategyStore = new StrategyStore2(this);
 
     public static void main(String[] args) {
         logger.info("Bot started");
